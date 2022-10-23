@@ -1,21 +1,21 @@
-Title,Location,Price,Area
-"                                    $750,000                                       ",5 beds         
-"                                    $350,000                                       ",3 beds         
-"                                    $395,000                                       ",3 beds         
-"                                    $390,000                                       ",4 beds         
-"                                    $362,000                                       ",3 beds         
-"                                    $317,000                                       ",3 beds         
-"                                    $455,000                                       ",3 beds         
-"                                    $395,000                                       ",4 beds         
-"                                    $355,000                                       ",2 beds         
-"                                    $395,000                                       ",3 beds         
-"                                    $430,000                                       ",3 beds         
-"                                    $370,000                                       ",3 beds         
-"                                    $430,000                                       ",3 beds         
-"                                    $396,000                                       ",4 beds         
-"                                    $336,000                                       ",3 beds         
-"                                    $420,000                                       ",4 beds         
-"                                    $346,000                                       ",2 beds         
-"                                    $445,000                                       ",3 beds         
-"                                    $487,000                                       ",4 beds         
-"                                    $395,000                                       ",3 beds         
+Price,Beds,Baths,Sqft
+"                                    $750,000                                       ",5 beds         ,4 baths         ,"3,560 sq. ft         "
+"                                    $350,000                                       ",3 beds         ,2 baths         ,"1,480 sq. ft         "
+"                                    $395,000                                       ",3 beds         ,2 baths         ,"1,764 sq. ft         "
+"                                    $390,000                                       ",4 beds         ,2 baths         ,"1,655 sq. ft         "
+"                                    $362,000                                       ",3 beds         ,2 baths         ,"1,576 sq. ft         "
+"                                    $317,000                                       ",3 beds         ,2 baths         ,"1,957 sq. ft         "
+"                                    $455,000                                       ",3 beds         ,2 baths         ,"2,238 sq. ft         "
+"                                    $395,000                                       ",4 beds         ,2 baths         ,"1,874 sq. ft         "
+"                                    $355,000                                       ",2 beds         ,2 baths         ,"1,025 sq. ft         "
+"                                    $395,000                                       ",3 beds         ,2 baths         ,"1,392 sq. ft         "
+"                                    $430,000                                       ",3 beds         ,2 baths         ,"1,669 sq. ft         "
+"                                    $370,000                                       ",3 beds         ,2 baths         ,"1,380 sq. ft         "
+"                                    $430,000                                       ",3 beds         ,2 baths         ,"1,568 sq. ft         "
+"                                    $396,000                                       ",4 beds         ,3 baths         ,"1,632 sq. ft         "
+"                                    $336,000                                       ",3 beds         ,2 baths         ,"1,253 sq. ft         "
+"                                    $420,000                                       ",4 beds         ,3 baths         ,"2,152 sq. ft         "
+"                                    $346,000                                       ",2 beds         ,1 bath         ,"1,044 sq. ft         "
+"                                    $445,000                                       ",3 beds         ,2 baths         ,"1,592 sq. ft         "
+"                                    $487,000                                       ",4 beds         ,2 baths         ,"2,291 sq. ft         "
+"                                    $395,000                                       ",3 beds         ,2 baths         ,"1,550 sq. ft         "
