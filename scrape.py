@@ -1,10 +1,10 @@
 from bs4 import BeautifulSoup
 import requests
 from csv import writer
-
+from urllib.request import urlopen
 url= "https://www.century21.com/real-estate/orlando-fl/LCFLORLANDO/"
-page = requests.get(url)
 
+page = requests.get(url)
 soup = BeautifulSoup(page.content, 'html.parser')
 lists = soup.find_all('div', class_="property-card-primary-info")
 
