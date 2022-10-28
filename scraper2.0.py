@@ -9,22 +9,23 @@ params = {
  "api_key": "WN5PAncn1XB2mzveYazxnJpsoIAq8KB8",
  "url": "https://www.realtor.com/realestateandhomes-search/Orlando_FL"
 }
+
 response = requests.request("GET", url, params=params)
 
 content = response.text
 
 soup = BeautifulSoup(response.content, 'html.parser')
-lists = soup.find_all('li', class_="component_property-card")
+lists = soup.find_all('div', class_="jsx-11645185 summary-wrap")
 
-with open('listing.csv', 'w', encoding='utf8', newline='') as f:
+with open('housing.csv', 'w', encoding='utf8', newline='') as f:
     thewriter = writer(f)
     header = ['Price', 'Beds', 'Baths']
     thewriter.writerow(header)
 
     for list in lists:
-        price = list.find('a', class_="listing-price").text.replace('\n', '')
-        beds = list.find('div', class_="property-beds").text.replace('\n', '')
-        baths = list.find('div', class_="property-baths").text.replace('\n', '')
+        price = list.find('span', attrs={'data-label': 'pc-price'}).text.replace('\n', '')
+        beds = list.find('li', attrs={'data-label': 'pc-meta-beds'}).text.replace('\n', '')
+        baths = list.find('li', attrs={'data-label': 'pc-meta-baths'}).text.replace('\n', '')
         #sqft = list.find('div', class_="property-sqft").text.replace('\n', '')
         #sqft = list.find('div', class_="property-sqft").text.replace('\n', '')
         
