@@ -1,0 +1,16 @@
+
+tasks:
+- source: scripts/get.py
+  product:
+    nb: products/get.ipynb
+    data: products/get.csv
+  
+- source: scripts/clean.py
+  product:
+    nb: products/clean.ipynb
+    data: products/clean.csv
+
+- source: scripts/fit.py
+  product:
+    nb: products/fit.ipynb
+    model: products/model.pickle
