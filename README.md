@@ -12,8 +12,8 @@
 
 ## Process
 
-- Scrape the data from each home on the market within a 20 mile radius of Orlando Florida ✅
-- Use ploomber to build a data pipeline.
+- Scrape the data from each home on the market within a 20 mile radius of Orlando Florida. ✅
+- Use ploomber to build a data pipeline. ✅
 - Use GitHub Actions to run the scarper every day and pull in newly added homes.
 - Predict the sale price of homes within a 20 mile radius of Orlando Florida.
 
