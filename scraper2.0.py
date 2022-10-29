@@ -17,6 +17,7 @@ content = response.text
 soup = BeautifulSoup(response.content, 'html.parser')
 lists = soup.find_all('div', class_="jsx-11645185 summary-wrap")
 
+
 with open('listing.csv', 'w', encoding='utf8', newline='') as f:
     thewriter = writer(f)
     header = ['Price', 'Beds', 'Baths','Sqft']

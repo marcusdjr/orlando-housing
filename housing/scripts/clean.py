@@ -42,7 +42,7 @@ import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 
 pd.set_option('display.float_format', lambda x: '{:.3f}'.format(x)) #Limiting floats output to 3 decimal points
 
-df = pd.read_csv('listing.csv')
+df = pd.read_csv(upstream['get']['data'])
 
 #Converting Price value into float datatype
 def clean_currency(x):
@@ -87,5 +87,7 @@ def clean_currency(x):
     return(x)
 
 df['Sqft'] = df['Sqft'].apply(clean_currency).astype('float')
+
+df.to_csv(product['data'], index=False)
 
 # %%

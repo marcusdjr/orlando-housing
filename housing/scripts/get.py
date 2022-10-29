@@ -44,7 +44,7 @@ from csv import writer
 url = "https://api.webscrapingapi.com/v1"
 params = {
  "api_key": "WN5PAncn1XB2mzveYazxnJpsoIAq8KB8",
- "url": "https://www.realtor.com/realestateandhomes-search/Orlando_FL"
+ "url": "https://www.realtor.com/realestateandhomes-search/Orlando_FL/radius-25"
 }
 
 response = requests.request("GET", url, params=params)
