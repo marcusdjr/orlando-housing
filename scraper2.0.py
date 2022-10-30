@@ -10,19 +10,13 @@ params = {
  "url": "https://www.realtor.com/realestateandhomes-search/Orlando_FL"
 }
 
-prices = []
-beds = []
-baths = []
-sqft = []
-addresses = []
-
 response = requests.request("GET", url, params=params)
 
 content = response.text
 
 soup = BeautifulSoup(response.content, 'html.parser')
 lists = soup.find_all('div', class_="jsx-11645185 summary-wrap")
-with open('listing.csv', 'w', encoding='utf8', newline='') as f:
+with open('housing.csv', 'w', encoding='utf8', newline='') as f:
     thewriter = writer(f)
     header = ['Price', 'Beds', 'Baths','Sqft']
     thewriter.writerow(header)
