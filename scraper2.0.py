@@ -11,10 +11,9 @@ params = {
 }
 
 response = requests.request("GET", url, params=params)
-
 content = response.text
-
 soup = BeautifulSoup(response.content, 'html.parser')
+
 lists = soup.find_all('div', class_="jsx-11645185 summary-wrap")
 with open('housing.csv', 'w', encoding='utf8', newline='') as f:
     thewriter = writer(f)
@@ -29,3 +28,4 @@ with open('housing.csv', 'w', encoding='utf8', newline='') as f:
 
         info = [price, beds, baths]
         thewriter.writerow(info)
+
