@@ -4,25 +4,13 @@ from requests_html import HTML, HTMLSession
 from csv import writer
 from urllib.request import urlopen
 import pandas as pd
-from random import randint
-from time import sleep
 
 
 url= "https://www.century21.com/real-estate/orlando-fl/LCFLORLANDO/"
 
-for page in range(1,10):
-
-    response = requests.get(url)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    lists = soup.find_all('div', class_="property-card-primary-info")
-
-    for i in range(4,19):
-        if page>1:
-            print(f"{(i-3)+page*15}" + lists[i].text)
-        else:
-            print(f"{i-3}" + lists[i].text)
-  
-    sleep(randint(2,10))
+page = requests.get(url)
+soup = BeautifulSoup(page.content, 'html.parser')
+lists = soup.find_all('div', class_="property-card-primary-info")
 
 with open('test.csv', 'w', encoding='utf8', newline='') as f:
     thewriter = writer(f)
