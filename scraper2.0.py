@@ -18,16 +18,14 @@ soup = BeautifulSoup(response.content, 'html.parser')
 lists = soup.find_all('div', class_="jsx-11645185 summary-wrap")
 with open('housing.csv', 'w', encoding='utf8', newline='') as f:
     thewriter = writer(f)
-    header = ['Price', 'Beds', 'Baths','Sqft']
+    header = ['Price', 'Beds', 'Baths']
     thewriter.writerow(header)
 
     for list in lists:
         price = list.find('span', attrs={'data-label': 'pc-price'}).text.replace('\n', '')
         beds = list.find('li', attrs={'data-label': 'pc-meta-beds'}).text.replace('\n', '')
         baths = list.find('li', attrs={'data-label': 'pc-meta-baths'}).text.replace('\n', '')
-        sqft = list.find('li', attrs={'data-label': 'pc-meta-sqft'}).text.replace('\n', '')
+        #sqft = list.find('li', attrs={'data-label': 'pc-meta-sqft'}).text.replace('\n', '')
 
-        #info["Price"] = pd.to_numeric(info["price"], errors='coerce').fillna(0, downcast='infer')
-
-        info = [price, beds, baths,sqft]
+        info = [price, beds, baths]
         thewriter.writerow(info)
