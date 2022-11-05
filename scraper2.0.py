@@ -29,3 +29,6 @@ with open('housing.csv', 'w', encoding='utf8', newline='') as f:
         info = [price, beds, baths,sqft]
         thewriter.writerow(info)
 
+df = pd.read_csv('housing.csv')
+df.to_csv("listing.csv")
+
