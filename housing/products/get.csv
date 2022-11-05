@@ -1,4 +1,6 @@
 Price,Beds,Baths,Sqft
+"$499,000",3bed,2bath,"2,022sqft"
+"$279,000",2bed,2bath,"1,131sqft"
 "$484,990",4bed,2bath,"2,008sqft"
 "$249,900",3bed,2bath,"1,200sqft"
 "$365,000",4bed,2bath,"1,688sqft"
@@ -39,5 +41,3 @@ Price,Beds,Baths,Sqft
 "$550,000",4bed,2.5bath,"2,325sqft"
 "$249,900",3bed,1bath,824sqft
 "$248,000",2bed,2bath,583sqft
-"$999,000",8bed,6bath,"4,631sqft"
-"$314,900",3bed,2bath,"1,056sqft"

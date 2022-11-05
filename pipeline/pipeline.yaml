@@ -13,4 +13,3 @@ tasks:
 - source: scripts/fit.py
   product:
     nb: products/fit.ipynb
-    model: products/model.pickle

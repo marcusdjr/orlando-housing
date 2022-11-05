@@ -1,4 +1,4 @@
-# housing
+# pipeline
 Requires [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
 
 ## Setup
@@ -7,7 +7,7 @@ Requires [Miniconda](https://docs.conda.io/en/latest/miniconda.html).
 # NOTE: if running ploomber <0.16, remove the --create-env argument
 ploomber install --create-env
 # activate conda environment
-conda activate housing
+conda activate pipeline
 
 ```
 

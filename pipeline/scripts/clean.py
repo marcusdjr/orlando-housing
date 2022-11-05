@@ -91,3 +91,6 @@ df['Sqft'] = df['Sqft'].apply(clean_currency).astype('float')
 df.to_csv(product['data'], index=False)
 
 # %%
+df.to_csv(product['data'], index=False)
+
+# %%

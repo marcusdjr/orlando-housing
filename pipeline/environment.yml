@@ -1,4 +1,4 @@
-name: housing
+name: pipeline
 
 channels:
   - conda-forge
