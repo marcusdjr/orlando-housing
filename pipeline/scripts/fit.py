@@ -57,6 +57,12 @@ from scipy.stats import norm, skew #for some statistics
 hom = pd.read_csv(upstream['clean']['data'])
 #Start of Analyzing/Training model
 df = pd.read_csv('soldhomes.csv')
+def clean_dataset(df):
+    assert isinstance(df, pd.DataFrame), "df needs to be a pd.DataFrame"
+    df.dropna(inplace=True)
+    indices_to_keep = ~df.isin([np.nan, np.inf, -np.inf]).any(1)
+    return df[indices_to_keep].astype(np.float64)
+
 
 # %%
 df.head()
@@ -70,4 +76,79 @@ plt.ylabel('Count')
 sns.despine
 
 # %%
-plt.figure(fig
+#Visualizing the location of the houses based on latitude and longitude
+plt.figure(figsize=(10,10))
+sns.jointplot(x=df.latitude, y=df.longitude, size=10)
+plt.ylabel('Longitude',fontsize=12)
+plt.ylabel('Laitude',fontsize=12)
+plt.show()
+sns.despine
+
+# %%
+#How Sqft is affecting the sale price of homes
+plt.scatter(df.price,df.livingArea)
+plt.title('Price vs Sqaure Feet')
+
+# %%
+#How Location is affecting the sale price of homes
+plt.scatter(df.price,df.longitude)
+plt.title('Price vs Location of the area')
+
+# %%
+#How Number of Bedrooms is affecting the sale price of homes
+plt.scatter(df.bedrooms,df.price)
+plt.title('Bedroom and Price')
+plt.xlabel('Bedrooms')
+plt.ylabel('Price')
+plt.show()
+sns.despine
+
+# %%
+#How the amount of days home was on zillow affected the sale price
+plt.scatter(df.daysOnZillow,df.price)
+plt.title('Days On Zillow vs Price')
+
+# %%
+#How the year the house was built affects the homes sale price
+plt.scatter(df.yearBuilt,df.price)
+plt.title('Year Built vs Price')
+
+# %%
+#Time to start training models
+
+# %%
+df.head()
+
+# %%
+from sklearn.model_selection import train_test_split
+
+# %%
+X = df[['bedrooms','bathrooms','livingArea','yearBuilt','daysOnZillow']]
+y = df['price']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
+
+# %%
+from sklearn.neighbors import KNeighborsClassifier
+np.nan_to_num(X_train)
+np.nan_to_num(X_test)
+
+# %%
+knn = KNeighborsClassifier(n_neighbors=1)
+
+# %%
+knn.fit(X_train,y_train)
+
+# %%
+pred = knn.predict(X_test)
+
+# %%
+from sklearn.metrics import classification_report,confusion_matrix
+
+# %%
+print(confusion_matrix(y_test,pred))
+print(classification_report(y_test,pred))
+
+# %%
+df.head()
+
+# %%
