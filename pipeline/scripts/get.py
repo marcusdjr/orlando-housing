@@ -49,37 +49,31 @@ querystring = {"state_code":"FL","city":"Orlando","limit":"200","offset":"0","so
 
 response = requests.request("GET", url, headers=creds.headers, params=querystring)
 
-with open("sold.csv","w") as file:
-    file.write(response.text + "\n")
+with open("sold.json","w") as json:
+    json.write(response.text + "\n")
 
-# df = pd.DataFrame(querystring{"state_code":"FL","city":"Orlando","limit":"200","offset":"0","sort":"sold_date"})
-# df.to_csv('soldhomes.csv',index=False)
+url = "sh.csv"
 
-# df = pd.read_csv('soldhomes.csv')
-# df.to_csv(product['data'], index=False)
+response = requests.request("GET", url, params=creds.params)
+content = response.text
+soup = BeautifulSoup(response.content, 'html.parser')
 
-# url = "https://api.webscrapingapi.com/v1"
+lists = soup.find_all('div', class_="jsx-11645185 summary-wrap")
+with open('housing.csv', 'w', encoding='utf8', newline='') as f:
+    thewriter = writer(f)
+    header = ['Price', 'Beds', 'Baths','Sqft']
+    thewriter.writerow(header)
 
-# response = requests.request("GET", url, params=creds.params)
-# content = response.text
-# soup = BeautifulSoup(response.content, 'html.parser')
+    for list in lists:
+        price = list.find('span', attrs={'data-label': 'pc-price'}).text.replace('\n', '')
+        beds = list.find('li', attrs={'data-label': 'pc-meta-beds'}).text.replace('\n', '')
+        baths = list.find('li', attrs={'data-label': 'pc-meta-baths'}).text.replace('\n', '')
+        sqft = list.find('li', attrs={'data-label': 'pc-meta-sqft'}).text.replace('\n', '')
 
-# lists = soup.find_all('div', class_="jsx-11645185 summary-wrap")
-# with open('housing.csv', 'w', encoding='utf8', newline='') as f:
-#     thewriter = writer(f)
-#     header = ['Price', 'Beds', 'Baths','Sqft']
-#     thewriter.writerow(header)
-
-#     for list in lists:
-#         price = list.find('span', attrs={'data-label': 'pc-price'}).text.replace('\n', '')
-#         beds = list.find('li', attrs={'data-label': 'pc-meta-beds'}).text.replace('\n', '')
-#         baths = list.find('li', attrs={'data-label': 'pc-meta-baths'}).text.replace('\n', '')
-#         sqft = list.find('li', attrs={'data-label': 'pc-meta-sqft'}).text.replace('\n', '')
-
-#         info = [price, beds, baths,sqft]
-#         thewriter.writerow(info)
+        info = [price, beds, baths,sqft]
+        thewriter.writerow(info)
         
-# df = pd.read_csv('housing.csv')
-# df.to_csv(product['data'], index=False)
+df = pd.read_csv('housing.csv')
+df.to_csv(product['data'], index=False)
 
 # %%
