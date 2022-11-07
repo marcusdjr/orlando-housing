@@ -56,13 +56,6 @@ from scipy.stats import norm, skew #for some statistics
 #This file is scraped homes that we run the model againts- hom = homes on market
 hom = pd.read_csv(upstream['clean']['data'])
 #Start of Analyzing/Training model
-df = pd.read_csv('soldhomes.csv')
-def clean_dataset(df):
-    assert isinstance(df, pd.DataFrame), "df needs to be a pd.DataFrame"
-    df.dropna(inplace=True)
-    indices_to_keep = ~df.isin([np.nan, np.inf, -np.inf]).any(1)
-    return df[indices_to_keep].astype(np.float64)
-
 
 # %%
 df.head()
@@ -117,38 +110,57 @@ plt.title('Year Built vs Price')
 #Time to start training models
 
 # %%
-df.head()
+df.info()
 
 # %%
 from sklearn.model_selection import train_test_split
 
 # %%
-X = df[['bedrooms','bathrooms','livingArea','yearBuilt','daysOnZillow']]
+X = df[['bedrooms', 'bathrooms', 'yearBuilt',
+       'livingArea']]
 y = df['price']
+
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
 
 # %%
-from sklearn.neighbors import KNeighborsClassifier
-np.nan_to_num(X_train)
-np.nan_to_num(X_test)
+X.isnull().sum()
 
 # %%
-knn = KNeighborsClassifier(n_neighbors=1)
+missing_values=['??','na','X','999999','NaN']
+X=X.replace(missing_values,np.NaN)
+X
 
 # %%
-knn.fit(X_train,y_train)
+m=round(df["bedrooms"].mean(),2)
+m
+X["bedrooms"].fillna(m,inplace=True)
+X["bathrooms"].fillna(m,inplace=True)
+X["yearBuilt"].fillna(m,inplace=True)
+X["livingArea"].fillna(m,inplace=True)
 
 # %%
-pred = knn.predict(X_test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30)
+
+# %%
+from sklearn.ensemble import RandomForestClassifier
+
+# %%
+rfc = RandomForestClassifier(n_estimators=200)
+
+# %%
+rfc.fit(X_train,y_train)
+
+# %%
+rfc_pred = rfc.predict(X_test)
 
 # %%
 from sklearn.metrics import classification_report,confusion_matrix
 
 # %%
-print(confusion_matrix(y_test,pred))
-print(classification_report(y_test,pred))
+print (confusion_matrix(y_test,rfc_pred))
+print(classification_report(y_test,rfc_pred))
 
 # %%
-df.head()
+rfc_pred
 
 # %%
