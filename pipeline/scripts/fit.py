@@ -53,84 +53,21 @@ from scipy.stats import norm, skew #for some statistics
 
 
 # %%
-
-df = pd.read_csv(upstream['clean']['data'])
-#Home prices based off sqft
-var = 'Sqft'
-data = pd.concat([df['Price'], df[var]], axis=1)
-data.plot.scatter(x=var, y='Price', ylim=(0,800000),xlim=(1000,5000));
+#This file is scraped homes that we run the model againts- hom = homes on market
+hom = pd.read_csv(upstream['clean']['data'])
+#Start of Analyzing/Training model
+df = pd.read_csv('soldhomes.csv')
 
 # %%
-#Whats the frequency of houses in different price ranges
-sns.distplot(df['Price'] , fit=norm);
-
-#  the fitted parameters used by the function
-(mu, sigma) = norm.fit(df['Price'])
-print( '\n mu = {:.2f} and sigma = {:.2f}\n'.format(mu, sigma))
-
-# plot the distribution
-plt.legend(['Normal dist. ($\mu=$ {:.2f} and $\sigma=$ {:.2f} )'.format(mu, sigma)],
-            loc='best')
-plt.ylabel('Frequency')
-plt.title('Price distribution - $100ks')
-plt.xlim(0,1000000)
-
-#Get also the QQ-plot
-fig = plt.figure()
-res = stats.probplot(df['Price'], plot=plt)
-plt.show()
+df.head()
 
 # %%
-#Plot Line Graph of prices of homes
-#Y = Price up to 2 million
-df.plot.line(y='Price', use_index=True, ylim=(0,1000000))
+#Most common bedroom number
+df['bedrooms'].value_counts().plot(kind='bar')
+plt.title('number of Bedroom')
+plt.xlabel('Bedrooms')
+plt.ylabel('Count')
+sns.despine
 
 # %%
-X = df[['Beds','Baths','Sqft']]
-y = df['Price']
-
-# %%
-from sklearn.model_selection import train_test_split
-
-# %%
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=101) 
-
-# %%
-from sklearn.linear_model import LinearRegression
-
-# %%
-lm = LinearRegression()
-
-# %%
-lm.fit(X_train,y_train)
-
-# %%
-print(lm.intercept_)
-
-# %%
-lm.coef_
-
-# %%
-predictions = lm.predict(X_test)
-
-# %%
-predictions
-
-# %%
-y_test
-
-# %%
-#scatter plot that shows atual prices of homes and predicted prices of home and how they compare
-import matplotlib.pyplot as plt
-_, ax = plt.subplots()
-
-ax.scatter(x = range(0, y_test.size), y=y_test, c = 'blue', label = 'Actual', alpha = 0.3)
-ax.scatter(x = range(0, predictions.size), y=predictions, c = 'red', label = 'Predicted', alpha = 0.3)
-
-plt.title('Actual and predicted values')
-plt.xlabel('Observations')
-plt.ylabel('Prices')
-plt.legend()
-plt.show()
-
-# %%
+plt.figure(fig

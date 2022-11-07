@@ -43,16 +43,16 @@ from csv import writer
 import creds
 import requests
 
-url = "https://us-real-estate.p.rapidapi.com/sold-homes"
+# url = "https://us-real-estate.p.rapidapi.com/sold-homes"
 
-querystring = {"state_code":"FL","city":"Orlando","limit":"200","offset":"0","sort":"sold_date"}
+# querystring = {"state_code":"FL","city":"Orlando","limit":"200","offset":"0","sort":"sold_date"}
 
-response = requests.request("GET", url, headers=creds.headers, params=querystring)
+# response = requests.request("GET", url, headers=creds.headers, params=querystring)
 
-with open("sold.json","w") as json:
-    json.write(response.text + "\n")
+# with open("sold.json","w") as json:
+#     json.write(response.text + "\n")
 
-url = "sh.csv"
+url = "https://api.webscrapingapi.com/v1"
 
 response = requests.request("GET", url, params=creds.params)
 content = response.text
