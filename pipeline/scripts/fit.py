@@ -166,7 +166,7 @@ m=round(train["daysOnZillow"].mean(),2)
 train["daysOnZillow"].fillna(m,inplace=True)
 
 # %%
-X = train[['bedrooms', 'bedrooms','bathrooms', 'yearBuilt','livingArea','price']]
+X = train[['price','bedrooms','bathrooms','livingArea']] #'yearBuilt','bedrooms'
 
 y = train['price']
 
@@ -198,7 +198,7 @@ lm.score(X_train,y_train)
 
 from sklearn.model_selection import train_test_split
 
-X = train[['bedrooms', 'bedrooms','bathrooms', 'yearBuilt','livingArea','price']]
+X = train[['price','bedrooms','bathrooms','livingArea']] #'yearBuilt','bedrooms'
 
 y = train['price']
 
@@ -241,5 +241,11 @@ pred = knn.predict(X_test)
 print(confusion_matrix(y_test,pred))
 print('\n')
 print(classification_report(y_test,pred))
+
+# %%
+#Predicting sale price of last 42 listed homes currently on realtor.com 
+y = df[['Price','Beds','Baths','Sqft']]
+
+lm.predict(y)
 
 # %%
