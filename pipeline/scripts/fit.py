@@ -50,19 +50,28 @@ warnings.warn = ignore_warn #ignore annoying warning (from sklearn and seaborn)
 
 from scipy import stats
 from scipy.stats import norm, skew #for some statistics
+#missing_values=['??','na','X','999999','NaN']
+#X=X.replace(missing_values,np.NaN)
+#X
+
+#m=round(df["bedrooms"].mean(),2)
+#m
+#X["bedrooms"].fillna(m,inplace=True)
 
 
 # %%
 #This file is scraped homes that we run the model againts- hom = homes on market
-hom = pd.read_csv(upstream['clean']['data'])
+df = pd.read_csv(upstream['clean']['data'])
+#Training csv
+train = pd.read_csv('soldhomes.csv')
 #Start of Analyzing/Training model
 
 # %%
-df.head()
+train.head()
 
 # %%
 #Most common bedroom number
-df['bedrooms'].value_counts().plot(kind='bar')
+train['bedrooms'].value_counts().plot(kind='bar')
 plt.title('number of Bedroom')
 plt.xlabel('Bedrooms')
 plt.ylabel('Count')
@@ -71,7 +80,7 @@ sns.despine
 # %%
 #Visualizing the location of the houses based on latitude and longitude
 plt.figure(figsize=(10,10))
-sns.jointplot(x=df.latitude, y=df.longitude, size=10)
+sns.jointplot(x=train.latitude, y=train.longitude, size=10)
 plt.ylabel('Longitude',fontsize=12)
 plt.ylabel('Laitude',fontsize=12)
 plt.show()
@@ -79,17 +88,17 @@ sns.despine
 
 # %%
 #How Sqft is affecting the sale price of homes
-plt.scatter(df.price,df.livingArea)
+plt.scatter(train.price,train.livingArea)
 plt.title('Price vs Sqaure Feet')
 
 # %%
 #How Location is affecting the sale price of homes
-plt.scatter(df.price,df.longitude)
+plt.scatter(train.price,train.longitude)
 plt.title('Price vs Location of the area')
 
 # %%
 #How Number of Bedrooms is affecting the sale price of homes
-plt.scatter(df.bedrooms,df.price)
+plt.scatter(train.bedrooms,train.price)
 plt.title('Bedroom and Price')
 plt.xlabel('Bedrooms')
 plt.ylabel('Price')
@@ -98,69 +107,139 @@ sns.despine
 
 # %%
 #How the amount of days home was on zillow affected the sale price
-plt.scatter(df.daysOnZillow,df.price)
+plt.scatter(train.daysOnZillow,train.price)
 plt.title('Days On Zillow vs Price')
 
 # %%
 #How the year the house was built affects the homes sale price
-plt.scatter(df.yearBuilt,df.price)
+plt.scatter(train.yearBuilt,train.price)
 plt.title('Year Built vs Price')
 
 # %%
 #Time to start training models
 
 # %%
-df.info()
+train.isnull().sum()
+
+# %%
+missing_values=['??','na','X','999999']
+train=train.replace(missing_values,np.NaN)
+
+# %%
+train.dtypes
+
+# %%
+#Filling in missing Price rows
+train["price"]=train["price"].astype("float64")
+m=round(train["price"].mean(),2)
+
+train["price"].fillna(m,inplace=True)
+
+#Filling in missing Bedroom rows
+train["bedrooms"]=train["bedrooms"].astype("float64")
+m=round(train["bedrooms"].mean(),2)
+
+train["bedrooms"].fillna(m,inplace=True)
+
+#Filling in missing Bathroom rows
+train["bathrooms"]=train["bathrooms"].astype("float64")
+m=round(train["bathrooms"].mean(),2)
+
+train["bathrooms"].fillna(m,inplace=True)
+
+#Filling in missing yearBuilt rows
+train["yearBuilt"]=train["yearBuilt"].astype("float64")
+m=round(train["yearBuilt"].mean(),2)
+
+train["yearBuilt"].fillna(m,inplace=True)
+
+#Filling in missing livingArea  rows
+train["livingArea "]=train["livingArea"].astype("float64")
+m=round(train["livingArea"].mean(),2)
+
+train["livingArea"].fillna(m,inplace=True)
+
+#Filling in missing livingArea  rows
+train["daysOnZillow"]=train["daysOnZillow"].astype("float64")
+m=round(train["daysOnZillow"].mean(),2)
+
+train["daysOnZillow"].fillna(m,inplace=True)
+
+# %%
+X = train[['bedrooms', 'bedrooms','bathrooms', 'yearBuilt','livingArea','price']]
+
+y = train['price']
 
 # %%
 from sklearn.model_selection import train_test_split
 
 # %%
-X = df[['bedrooms', 'bathrooms', 'yearBuilt',
-       'livingArea']]
-y = df['price']
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101) 
 
 # %%
-X.isnull().sum()
+#Linear Regression
+from sklearn.linear_model import LinearRegression
 
 # %%
-missing_values=['??','na','X','999999','NaN']
-X=X.replace(missing_values,np.NaN)
-X
+lm = LinearRegression()
 
 # %%
-m=round(df["bedrooms"].mean(),2)
-m
-X["bedrooms"].fillna(m,inplace=True)
-X["bathrooms"].fillna(m,inplace=True)
-X["yearBuilt"].fillna(m,inplace=True)
-X["livingArea"].fillna(m,inplace=True)
+lm.fit(X_train,y_train)
 
 # %%
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30)
+predictions = lm.predict(X_test)
+predictions
 
 # %%
-from sklearn.ensemble import RandomForestClassifier
+lm.score(X_train,y_train)
 
 # %%
-rfc = RandomForestClassifier(n_estimators=200)
+#KNN 
+
+from sklearn.model_selection import train_test_split
+
+X = train[['bedrooms', 'bedrooms','bathrooms', 'yearBuilt','livingArea','price']]
+
+y = train['price']
+
+from sklearn.neighbors import KNeighborsClassifier
 
 # %%
-rfc.fit(X_train,y_train)
+knn = KNeighborsClassifier(n_neighbors=1)
 
 # %%
-rfc_pred = rfc.predict(X_test)
+knn.fit(X_train,y_train)
+
+# %%
+pred = knn.predict(X_test)
 
 # %%
 from sklearn.metrics import classification_report,confusion_matrix
 
 # %%
-print (confusion_matrix(y_test,rfc_pred))
-print(classification_report(y_test,rfc_pred))
+error_rate = []
+
+for i in range(1,40):
+
+    knn = KNeighborsClassifier(n_neighbors=i)
+    knn.fit(X_train,y_train)
+    pred_i = knn.predict(X_test)
+    error_rate.append(np.mean(pred_i != y_test))
 
 # %%
-rfc_pred
+plt.figure(figsize=(10,6))
+plt.plot(range(1,40),error_rate,color='blue',linestyle='dashed',marker='o',
+        markerfacecolor='red',markersize=10)
+plt.title('Error Rate vs K Value')
+plt.xlabel('K')
+plt.ylabel('Error Rate')
+
+# %%
+knn = KNeighborsClassifier(n_neighbors=1)
+knn.fit(X_train,y_train)
+pred = knn.predict(X_test)
+print(confusion_matrix(y_test,pred))
+print('\n')
+print(classification_report(y_test,pred))
 
 # %%
