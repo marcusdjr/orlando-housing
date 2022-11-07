@@ -1,3 +1,4 @@
 housing.csv
 listing.csv
 pipeline/scripts/creds.py
+pipeline/dataset_zillowjson
