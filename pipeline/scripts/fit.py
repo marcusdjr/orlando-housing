@@ -166,7 +166,10 @@ m=round(train["daysOnZillow"].mean(),2)
 train["daysOnZillow"].fillna(m,inplace=True)
 
 # %%
-X = train[['price','bedrooms','bathrooms','livingArea']] #'yearBuilt','bedrooms'
+train.head()
+
+# %%
+X = train[['bedrooms','bathrooms','livingArea']] #'yearBuilt','bedrooms'
 
 y = train['price']
 
@@ -192,6 +195,9 @@ predictions
 
 # %%
 lm.score(X_train,y_train)
+
+# %%
+help(lm.score)
 
 # %%
 #KNN 
@@ -243,9 +249,21 @@ print('\n')
 print(classification_report(y_test,pred))
 
 # %%
-#Predicting sale price of last 42 listed homes currently on realtor.com 
-y = df[['Price','Beds','Baths','Sqft']]
-
-lm.predict(y)
+df.info()
 
 # %%
+A_test = df[['Price', 'Beds', 'Baths',
+       'Sqft']]
+e_test = df[['Price']]
+
+# %%
+pr = lm.predict(A_test)
+
+# %%
+pr
+
+# %%
+A_train, A_test, e_train, e_test = train_test_split(A, e, test_size=0.3, random_state=101) 
+
+# %%
+lm.fit(A_train,e_train)

@@ -40,17 +40,8 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from csv import writer
-import creds
 import requests
-
-# url = "https://us-real-estate.p.rapidapi.com/sold-homes"
-
-# querystring = {"state_code":"FL","city":"Orlando","limit":"200","offset":"0","sort":"sold_date"}
-
-# response = requests.request("GET", url, headers=creds.headers, params=querystring)
-
-# with open("sold.json","w") as json:
-#     json.write(response.text + "\n")
+import creds
 
 url = "https://api.webscrapingapi.com/v1"
 
@@ -65,7 +56,7 @@ with open('housing.csv', 'w', encoding='utf8', newline='') as f:
     thewriter.writerow(header)
 
     for list in lists:
-        price = list.find('span', attrs={'data-label': 'pc-price'}).text.replace('\n', '')
+        price = list.find('span', attrs={'data-label': 'pc-price'}).text.replace('From', '')
         beds = list.find('li', attrs={'data-label': 'pc-meta-beds'}).text.replace('\n', '')
         baths = list.find('li', attrs={'data-label': 'pc-meta-baths'}).text.replace('\n', '')
         sqft = list.find('li', attrs={'data-label': 'pc-meta-sqft'}).text.replace('\n', '')

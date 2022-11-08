@@ -40,7 +40,7 @@ product = None
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 
 
-pd.set_option('display.float_format', lambda x: '{:.3f}'.format(x)) #Limiting floats output to 3 decimal points
+#pd.set_option('display.float_format', lambda x: '{:.3f}'.format(x)) #Limiting floats output to 3 decimal points
 
 df = pd.read_csv(upstream['get']['data'])
 
@@ -54,6 +54,7 @@ def clean_currency(x):
     return(x)
 
 df['Price'] = df['Price'].apply(clean_currency).astype('float')
+
 
 #Converting Beds value into float datatype
 def clean_currency(x):
