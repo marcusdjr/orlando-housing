@@ -41,30 +41,29 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from csv import writer
 import requests
-import creds
 
 url = "https://api.webscrapingapi.com/v1"
 
-response = requests.request("GET", url, params=creds.params)
+
+
+response = requests.request("GET", url, params=params)
 content = response.text
 soup = BeautifulSoup(response.content, 'html.parser')
 
 lists = soup.find_all('div', class_="jsx-11645185 summary-wrap")
 with open('housing.csv', 'w', encoding='utf8', newline='') as f:
     thewriter = writer(f)
-    header = ['Price', 'Beds', 'Baths','Sqft']
+    header = ['Price', 'Beds', 'Baths']
     thewriter.writerow(header)
 
     for list in lists:
         price = list.find('span', attrs={'data-label': 'pc-price'}).text.replace('From', '')
         beds = list.find('li', attrs={'data-label': 'pc-meta-beds'}).text.replace('\n', '')
         baths = list.find('li', attrs={'data-label': 'pc-meta-baths'}).text.replace('\n', '')
-        sqft = list.find('li', attrs={'data-label': 'pc-meta-sqft'}).text.replace('\n', '')
+        # sqft = list.find('li', attrs={'data-label': 'pc-meta-sqft'}).text.replace('\n', '')
 
-        info = [price, beds, baths,sqft]
+        info = [price, beds, baths]
         thewriter.writerow(info)
         
 df = pd.read_csv('housing.csv')
 df.to_csv(product['data'], index=False)
-
-# %%

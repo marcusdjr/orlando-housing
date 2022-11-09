@@ -50,19 +50,16 @@ warnings.warn = ignore_warn #ignore annoying warning (from sklearn and seaborn)
 
 from scipy import stats
 from scipy.stats import norm, skew #for some statistics
-#missing_values=['??','na','X','999999','NaN']
-#X=X.replace(missing_values,np.NaN)
-#X
 
-#m=round(df["bedrooms"].mean(),2)
-#m
-#X["bedrooms"].fillna(m,inplace=True)
 
 
 # %%
 #This file is scraped homes that we run the model againts- hom = homes on market
 df = pd.read_csv(upstream['clean']['data'])
 #Training csv
+import os
+
+
 train = pd.read_csv('soldhomes.csv')
 #Start of Analyzing/Training model
 
@@ -116,6 +113,10 @@ plt.scatter(train.yearBuilt,train.price)
 plt.title('Year Built vs Price')
 
 # %%
+plt.scatter(train.listPrice,train.price)
+plt.title('Days On Zillow vs Price')
+
+# %%
 #Time to start training models
 
 # %%
@@ -129,47 +130,11 @@ train=train.replace(missing_values,np.NaN)
 train.dtypes
 
 # %%
-#Filling in missing Price rows
-train["price"]=train["price"].astype("float64")
-m=round(train["price"].mean(),2)
-
-train["price"].fillna(m,inplace=True)
-
-#Filling in missing Bedroom rows
-train["bedrooms"]=train["bedrooms"].astype("float64")
-m=round(train["bedrooms"].mean(),2)
-
-train["bedrooms"].fillna(m,inplace=True)
-
-#Filling in missing Bathroom rows
-train["bathrooms"]=train["bathrooms"].astype("float64")
-m=round(train["bathrooms"].mean(),2)
-
-train["bathrooms"].fillna(m,inplace=True)
-
-#Filling in missing yearBuilt rows
-train["yearBuilt"]=train["yearBuilt"].astype("float64")
-m=round(train["yearBuilt"].mean(),2)
-
-train["yearBuilt"].fillna(m,inplace=True)
-
-#Filling in missing livingArea  rows
-train["livingArea "]=train["livingArea"].astype("float64")
-m=round(train["livingArea"].mean(),2)
-
-train["livingArea"].fillna(m,inplace=True)
-
-#Filling in missing livingArea  rows
-train["daysOnZillow"]=train["daysOnZillow"].astype("float64")
-m=round(train["daysOnZillow"].mean(),2)
-
-train["daysOnZillow"].fillna(m,inplace=True)
-
-# %%
 train.head()
 
 # %%
-X = train[['bedrooms','bathrooms','livingArea']] #'yearBuilt','bedrooms'
+X = train[['bedrooms','bathrooms','livingArea','listPrice']]
+#'yearBuilt','bedrooms'
 
 y = train['price']
 
@@ -190,7 +155,7 @@ lm = LinearRegression()
 lm.fit(X_train,y_train)
 
 # %%
-predictions = lm.predict(X_test)
+predictions = lm.predict(X_train)
 predictions
 
 # %%
@@ -200,70 +165,40 @@ lm.score(X_train,y_train)
 help(lm.score)
 
 # %%
-#KNN 
-
-from sklearn.model_selection import train_test_split
-
-X = train[['price','bedrooms','bathrooms','livingArea']] #'yearBuilt','bedrooms'
-
-y = train['price']
-
-from sklearn.neighbors import KNeighborsClassifier
+y_test
 
 # %%
-knn = KNeighborsClassifier(n_neighbors=1)
+
+plt.scatter(x = range(0, y_test.size), y=y_test, c = 'blue', label = 'Actual', alpha = 0.3)
+plt.scatter(x = range(0, predictions.size), y=predictions, c = 'red', label = 'Predicted', alpha = 0.3)
+
+plt.title('Actual and predicted values')
+plt.xlabel('Observations')
+plt.ylabel('Prices')
+plt.legend()
+plt.show()
 
 # %%
-knn.fit(X_train,y_train)
+from sklearn.metrics import r2_score
 
 # %%
-pred = knn.predict(X_test)
+r_sqaured = r2_score(y_train,predictions)
 
 # %%
-from sklearn.metrics import classification_report,confusion_matrix
+r_sqaured
 
 # %%
-error_rate = []
-
-for i in range(1,40):
-
-    knn = KNeighborsClassifier(n_neighbors=i)
-    knn.fit(X_train,y_train)
-    pred_i = knn.predict(X_test)
-    error_rate.append(np.mean(pred_i != y_test))
+df.to_json(product['nb'])
 
 # %%
-plt.figure(figsize=(10,6))
-plt.plot(range(1,40),error_rate,color='blue',linestyle='dashed',marker='o',
-        markerfacecolor='red',markersize=10)
-plt.title('Error Rate vs K Value')
-plt.xlabel('K')
-plt.ylabel('Error Rate')
+#My model is better than List price predictions
+y_t = train['price']
+x_t = train['listPrice']
 
 # %%
-knn = KNeighborsClassifier(n_neighbors=1)
-knn.fit(X_train,y_train)
-pred = knn.predict(X_test)
-print(confusion_matrix(y_test,pred))
-print('\n')
-print(classification_report(y_test,pred))
+r_sqaured = r2_score(y_t,x_t)
 
 # %%
-df.info()
+r_sqaured
 
 # %%
-A_test = df[['Price', 'Beds', 'Baths',
-       'Sqft']]
-e_test = df[['Price']]
-
-# %%
-pr = lm.predict(A_test)
-
-# %%
-pr
-
-# %%
-A_train, A_test, e_train, e_test = train_test_split(A, e, test_size=0.3, random_state=101) 
-
-# %%
-lm.fit(A_train,e_train)

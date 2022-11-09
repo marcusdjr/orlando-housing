@@ -79,19 +79,14 @@ def clean_currency(x):
 df['Baths'] = df['Baths'].apply(clean_currency).astype('float')
 
 #Converting Sqft value into float datatype
-def clean_currency(x):
-    """ If the value is a string, then remove currency symbol and delimiters
-    otherwise, the value is numeric and can be converted
-    """
-    if isinstance(x, str):
-        return(x.replace('sqft', '').replace(',', ''))
-    return(x)
+# def clean_currency(x):
+#     """ If the value is a string, then remove currency symbol and delimiters
+#     otherwise, the value is numeric and can be converted
+#     """
+#     if isinstance(x, str):
+#         return(x.replace('sqft', '').replace(',', ''))
+#     return(x)
 
-df['Sqft'] = df['Sqft'].apply(clean_currency).astype('float')
+# df['Sqft'] = df['Sqft'].apply(clean_currency).astype('float')
 
 df.to_csv(product['data'], index=False)
-
-# %%
-df.to_csv(product['data'], index=False)
-
-# %%
