@@ -133,6 +133,7 @@ train.dtypes
 train.head()
 
 # %%
+
 X = train[['bedrooms','bathrooms','livingArea','listPrice']]
 #'yearBuilt','bedrooms'
 
@@ -160,6 +161,18 @@ predictions
 
 # %%
 lm.score(X_train,y_train)
+
+# %%
+fig, ax = plt.subplots()
+ax.scatter(y_train, predictions)
+ax.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=4)
+ax.set_xlabel('Actual')
+ax.set_ylabel('Predicted')
+#regression line
+y_train, predictions = y_train.values.reshape(-1,1), y_train.values.reshape(-1,1)
+ax.plot(y_train, LinearRegression().fit(y_train, predictions).predict(y_train))
+
+plt.show()
 
 # %%
 help(lm.score)
@@ -192,6 +205,8 @@ df.to_json(product['nb'])
 
 # %%
 #My model is better than List price predictions
+model1 = (y_t,x_t)
+
 y_t = train['price']
 x_t = train['listPrice']
 
@@ -200,5 +215,17 @@ r_sqaured = r2_score(y_t,x_t)
 
 # %%
 r_sqaured
+
+# %%
+fig, ax = plt.subplots()
+ax.scatter(y_t, x_t)
+ax.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=4)
+ax.set_xlabel('Actual')
+ax.set_ylabel('Predicted')
+#regression line
+y_t, x_t = y_t.values.reshape(-1,1), x_t.values.reshape(-1,1)
+ax.plot(y_t, LinearRegression().fit(y_t, x_t).predict(y_t))
+
+plt.show()
 
 # %%
