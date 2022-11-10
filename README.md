@@ -17,6 +17,23 @@
 - Use GitHub Actions to run the scarper every day and pull in newly added homes.
 - Estimate the sale price of homes within a 20 mile radius of Orlando Florida.
 
+## Analysis
+
+#Most common bedroom number
+![BedroomsVIS](https://user-images.githubusercontent.com/31329300/200997421-ba548faa-d64a-48c1-8b70-0aabc24a6351.png)
+#Visualizing the location of the houses based on latitude and longitude
+![LatLongVis](https://user-images.githubusercontent.com/31329300/200997459-29b7d859-f671-478e-b5f9-2eaafa72f8f4.png)
+#How Sqft is affecting the sale price of homes
+![SqftVIS](https://user-images.githubusercontent.com/31329300/200997466-a7ac5424-2bb4-4296-b806-dbb3f72b7fa5.png)
+#How Location is affecting the sale price of homes
+![Location Vis](https://user-images.githubusercontent.com/31329300/200997473-243814df-e8ef-4df2-81b6-586caee2fcda.png)
+#How Number of Bedrooms is affecting the sale price of homes
+![bedsprice](https://user-images.githubusercontent.com/31329300/200997859-bddab4ac-0427-4077-99a5-de06a9891839.png)
+#How the amount of days home was on zillow affected the sale price
+![DaysVIS](https://user-images.githubusercontent.com/31329300/200997481-2f6d9c89-fd6c-4ee1-a1bb-3ebec98a6e4c.png)
+#How the year the house was built affects the homes sale price
+![yearbuiltVis](https://user-images.githubusercontent.com/31329300/200997484-2dd4af54-74f0-43e2-8411-1614cb5971c5.png)
+
 ## Results
 
 # My Model (Score: 0.9758446486618788)
