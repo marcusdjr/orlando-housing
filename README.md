@@ -17,4 +17,11 @@
 - Use GitHub Actions to run the scarper every day and pull in newly added homes.
 - Estimate the sale price of homes within a 20 mile radius of Orlando Florida.
 
+## Results
 
+# My Model
+![VIS1](https://user-images.githubusercontent.com/31329300/200976321-900d62ad-b1b9-4871-9166-e4e522d83167.png)
+
+Here we can see the accuracy of my model visually represented, 
+
+![VIS2](https://user-images.githubusercontent.com/31329300/200976347-6cc8ffcc-a08b-40ac-ae37-108e05b7f8b6.png)
