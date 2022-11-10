@@ -124,7 +124,7 @@ train.head()
 
 # %%
 #Setting my X and y
-X = train[['bedrooms','bathrooms','livingArea','listPrice']]
+X = train[['bedrooms','bathrooms','livingArea','listPrice','address_zipcode']]
 #'yearBuilt','bedrooms'
 
 y = train['price']
@@ -168,12 +168,22 @@ ax.plot(y_train, LinearRegression().fit(y_train, predictions).predict(y_train))
 plt.show()
 
 # %%
+#RMS calculation and value for "My Model"
+from sklearn.metrics import mean_squared_error
+from math import sqrt
+
+rms = sqrt(mean_squared_error(y_train, predictions))
+
+# %%
+rms
+
+# %%
 #Score import
 from sklearn.metrics import r2_score
 
-r_sqaured1 = r2_score(predictions,y_train)
+r_sqaured = r2_score(predictions,y_train)
 
-r_sqaured1
+r_sqaured
 
 
 # %%
@@ -187,11 +197,21 @@ x_t = train['listPrice']
 model1 = (y_t,x_t)
 
 # %%
-#Score of Model 1, My model will give a more acurate prediction on how much the house will sell for than just going off of the listed price on Zillow.com
-r_sqaured2 = r2_score(y_t,x_t)
+#RMS calculation and value for "Model 1"
+from sklearn.metrics import mean_squared_error
+from math import sqrt
+
+rms1 = sqrt(mean_squared_error(y_t,x_t))
 
 # %%
-r_sqaured2
+rms1
+
+# %%
+#Score of Model 1, My model will give a more acurate prediction on how much the house will sell for than just going off of the listed price on Zillow.com
+r_sqaured1 = r2_score(y_t,x_t)
+
+# %%
+r_sqaured1
 
 # %%
 #Visualization that represents score of Model 1
@@ -205,5 +225,3 @@ y_t, x_t = y_t.values.reshape(-1,1), x_t.values.reshape(-1,1)
 ax.plot(y_t, LinearRegression().fit(y_t, x_t).predict(y_t))
 
 plt.show()
-
-# %%
