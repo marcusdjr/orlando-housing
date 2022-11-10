@@ -152,58 +152,29 @@ predictions = lm.predict(X_train)
 predictions
 
 # %%
-scaler = StandardScaler()
-
-#y_train = scaler.fit_transform(pd.DataFrame(y_train))
-
-#X_train = scaler.fit_transform(pd.DataFrame(X_train))
-
-X_train = X_train[['listPrice']]
+#Reshape
+y_train, X_train = y_train.values.reshape(-1,1), X_train.values.reshape(-1,1)
 
 #Visualization that represents score
 fig, ax = plt.subplots()
-ax.scatter(y_train, X_train)
+ax.scatter(y_train, predictions)
 ax.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=4)
 ax.set_xlabel('Actual')
 ax.set_ylabel('Predicted')
 #regression line
-y_train, X_train['listPrice'] = y_train, X_train['listPrice']
-ax.plot(y_train, LinearRegression().fit(y_train, X_train['listPrice']).predict(y_train))
+y_train, predictions = y_train, predictions
+ax.plot(y_train, LinearRegression().fit(y_train, predictions).predict(y_train))
 
 plt.show()
 
 # %%
-#Score
-from sklearn.preprocessing import StandardScaler
+#Score import
+from sklearn.metrics import r2_score
 
-score = lm.score(X_train,y_train)
+r_sqaured1 = r2_score(predictions,y_train)
 
-score
+r_sqaured1
 
-
-# %%
-scaler = StandardScaler()
-
-#Ys = scaler.fit_transform(pd.DataFrame(y_train))
-
-#Ps = scaler.fit_transform(pd.DataFrame(X_train))
-
-#y_predicted = predictions.values.reshape(1,-1)
-
-#y_test = y_train.values.reshape(1,-1)
-
-# %%
-#Visualization that represents score
-fig, ax = plt.subplots()
-ax.scatter(y_train, X_train['price'])
-ax.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=4)
-ax.set_xlabel('Actual')
-ax.set_ylabel('Predicted')
-regression line
-y_train, X_train['price'] = y_train.reshape(-1,1), X_train['price'].reshape(-1,1)
-ax.plot(y_train, LinearRegression().fit(y_train, X_train['price']).predict(y_train))
-
-plt.show()
 
 # %%
 #Importing r2 score
@@ -217,10 +188,10 @@ model1 = (y_t,x_t)
 
 # %%
 #Score of Model 1, My model will give a more acurate prediction on how much the house will sell for than just going off of the listed price on Zillow.com
-r_sqaured = r2_score(y_t,x_t)
+r_sqaured2 = r2_score(y_t,x_t)
 
 # %%
-r_sqaured
+r_sqaured2
 
 # %%
 #Visualization that represents score of Model 1
