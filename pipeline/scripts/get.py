@@ -66,3 +66,5 @@ with open('housing.csv', 'w', encoding='utf8', newline='') as f:
         
 df = pd.read_csv('housing.csv')
 df.to_csv(product['data'], index=False)
+
+# %%

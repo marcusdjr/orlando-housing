@@ -11,5 +11,4 @@ tasks:
     data: products/clean.csv
 
 - source: scripts/fit.py
-  product:
-    nb: products/fit.ipynb
+  product: products/fit.ipynb

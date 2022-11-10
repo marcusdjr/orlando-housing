@@ -57,9 +57,6 @@ from scipy.stats import norm, skew #for some statistics
 #This file is scraped homes that we run the model againts- hom = homes on market
 df = pd.read_csv(upstream['clean']['data'])
 #Training csv
-import os
-
-
 train = pd.read_csv('soldhomes.csv')
 #Start of Analyzing/Training model
 
@@ -201,14 +198,10 @@ r_sqaured = r2_score(y_train,predictions)
 r_sqaured
 
 # %%
-df.to_json(product['nb'])
-
-# %%
 #My model is better than List price predictions
-model1 = (y_t,x_t)
-
 y_t = train['price']
 x_t = train['listPrice']
+model1 = (y_t,x_t)
 
 # %%
 r_sqaured = r2_score(y_t,x_t)
