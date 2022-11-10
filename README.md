@@ -21,10 +21,12 @@
 
 # My Model
 ![VIS1](https://user-images.githubusercontent.com/31329300/200976321-900d62ad-b1b9-4871-9166-e4e522d83167.png)
-
+#
 # VS
 
 # Model 1
 ![VIS2](https://user-images.githubusercontent.com/31329300/200976347-6cc8ffcc-a08b-40ac-ae37-108e05b7f8b6.png)
 
 ## Explanation
+
+In "My Model" here we see a score R Squared score of
