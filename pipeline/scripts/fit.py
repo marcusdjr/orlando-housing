@@ -152,26 +152,23 @@ predictions = lm.predict(X_train)
 predictions
 
 # %%
-from sklearn.metrics import r2_score
-y_predicted = lm.predict(X_train)
-print = r2_score(y_train, y_predicted)
+scaler = StandardScaler()
 
-y_train = scaler.fit_transform(pd.DataFrame(y_train))
+#y_train = scaler.fit_transform(pd.DataFrame(y_train))
 
-X_train = scaler.fit_transform(pd.DataFrame(X_train))
+#X_train = scaler.fit_transform(pd.DataFrame(X_train))
 
-print
+X_train = X_train[['listPrice']]
 
-# %%
-
+#Visualization that represents score
 fig, ax = plt.subplots()
-ax.scatter(y_train, y_predicted)
+ax.scatter(y_train, X_train)
 ax.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=4)
 ax.set_xlabel('Actual')
 ax.set_ylabel('Predicted')
 #regression line
-y_train, y_predicted = y_train, y_predicted
-ax.plot(y_train, LinearRegression().fit(y_train, y_predicted).predict(y_train))
+y_train, X_train['listPrice'] = y_train, X_train['listPrice']
+ax.plot(y_train, LinearRegression().fit(y_train, X_train['listPrice']).predict(y_train))
 
 plt.show()
 
@@ -185,18 +182,11 @@ score
 
 
 # %%
-len(y_train)
-
-# %%
-
-len(X_train)
-
-# %%
 scaler = StandardScaler()
 
-Ys = scaler.fit_transform(pd.DataFrame(y_train))
+#Ys = scaler.fit_transform(pd.DataFrame(y_train))
 
-Ps = scaler.fit_transform(pd.DataFrame(X_train))
+#Ps = scaler.fit_transform(pd.DataFrame(X_train))
 
 #y_predicted = predictions.values.reshape(1,-1)
 
@@ -204,16 +194,16 @@ Ps = scaler.fit_transform(pd.DataFrame(X_train))
 
 # %%
 #Visualization that represents score
-#fig, ax = plt.subplots()
-#ax.scatter(y_train, X_train)
-#ax.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=4)
-#ax.set_xlabel('Actual')
-#ax.set_ylabel('Predicted')
-#regression line
-#y_train, X_train = y_train.reshape(-1,1), X_train.reshape(-1,1)
-#ax.plot(y_train, LinearRegression().fit(y_train, X_train).predict(y_train))
+fig, ax = plt.subplots()
+ax.scatter(y_train, X_train['price'])
+ax.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=4)
+ax.set_xlabel('Actual')
+ax.set_ylabel('Predicted')
+regression line
+y_train, X_train['price'] = y_train.reshape(-1,1), X_train['price'].reshape(-1,1)
+ax.plot(y_train, LinearRegression().fit(y_train, X_train['price']).predict(y_train))
 
-#plt.show()
+plt.show()
 
 # %%
 #Importing r2 score

@@ -5,3 +5,4 @@ pipeline/dataset_zillowjson
 sidecode.py
 pipeline/creds.py
 .gitignore
+pipeline/pipeline.html
