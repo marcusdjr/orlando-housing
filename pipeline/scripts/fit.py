@@ -110,18 +110,11 @@ plt.scatter(train.yearBuilt,train.price)
 plt.title('Year Built vs Price')
 
 # %%
-plt.scatter(train.listPrice,train.price)
-plt.title('Days On Zillow vs Price')
-
-# %%
 #Time to start training models
 
 # %%
+#Total Null Values
 train.isnull().sum()
-
-# %%
-missing_values=['??','na','X','999999']
-train=train.replace(missing_values,np.NaN)
 
 # %%
 train.dtypes
@@ -130,13 +123,14 @@ train.dtypes
 train.head()
 
 # %%
-
+#Setting my X and y
 X = train[['bedrooms','bathrooms','livingArea','listPrice']]
 #'yearBuilt','bedrooms'
 
 y = train['price']
 
 # %%
+#Train Test Split
 from sklearn.model_selection import train_test_split
 
 # %%
@@ -153,63 +147,93 @@ lm = LinearRegression()
 lm.fit(X_train,y_train)
 
 # %%
+#Predicting
 predictions = lm.predict(X_train)
 predictions
 
 # %%
-lm.score(X_train,y_train)
+from sklearn.metrics import r2_score
+y_predicted = lm.predict(X_train)
+print = r2_score(y_train, y_predicted)
+
+y_train = scaler.fit_transform(pd.DataFrame(y_train))
+
+X_train = scaler.fit_transform(pd.DataFrame(X_train))
+
+print
 
 # %%
+
 fig, ax = plt.subplots()
-ax.scatter(y_train, predictions)
+ax.scatter(y_train, y_predicted)
 ax.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=4)
 ax.set_xlabel('Actual')
 ax.set_ylabel('Predicted')
 #regression line
-y_train, predictions = y_train.values.reshape(-1,1), y_train.values.reshape(-1,1)
-ax.plot(y_train, LinearRegression().fit(y_train, predictions).predict(y_train))
+y_train, y_predicted = y_train, y_predicted
+ax.plot(y_train, LinearRegression().fit(y_train, y_predicted).predict(y_train))
 
 plt.show()
 
 # %%
-help(lm.score)
+#Score
+from sklearn.preprocessing import StandardScaler
+
+score = lm.score(X_train,y_train)
+
+score
+
 
 # %%
-y_test
+len(y_train)
 
 # %%
 
-plt.scatter(x = range(0, y_test.size), y=y_test, c = 'blue', label = 'Actual', alpha = 0.3)
-plt.scatter(x = range(0, predictions.size), y=predictions, c = 'red', label = 'Predicted', alpha = 0.3)
-
-plt.title('Actual and predicted values')
-plt.xlabel('Observations')
-plt.ylabel('Prices')
-plt.legend()
-plt.show()
+len(X_train)
 
 # %%
+scaler = StandardScaler()
+
+Ys = scaler.fit_transform(pd.DataFrame(y_train))
+
+Ps = scaler.fit_transform(pd.DataFrame(X_train))
+
+#y_predicted = predictions.values.reshape(1,-1)
+
+#y_test = y_train.values.reshape(1,-1)
+
+# %%
+#Visualization that represents score
+#fig, ax = plt.subplots()
+#ax.scatter(y_train, X_train)
+#ax.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=4)
+#ax.set_xlabel('Actual')
+#ax.set_ylabel('Predicted')
+#regression line
+#y_train, X_train = y_train.reshape(-1,1), X_train.reshape(-1,1)
+#ax.plot(y_train, LinearRegression().fit(y_train, X_train).predict(y_train))
+
+#plt.show()
+
+# %%
+#Importing r2 score
 from sklearn.metrics import r2_score
 
 # %%
-r_sqaured = r2_score(y_train,predictions)
-
-# %%
-r_sqaured
-
-# %%
-#My model is better than List price predictions
+#Setting varialbles of Model 1
 y_t = train['price']
 x_t = train['listPrice']
 model1 = (y_t,x_t)
 
 # %%
+#Score of Model 1, My model will give a more acurate prediction on how much the house will sell for than just going off of the listed price on Zillow.com
 r_sqaured = r2_score(y_t,x_t)
 
 # %%
 r_sqaured
 
 # %%
+#Visualization that represents score of Model 1
 fig, ax = plt.subplots()
 ax.scatter(y_t, x_t)
 ax.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=4)
