@@ -19,26 +19,25 @@
 
 ## Analysis
 
-# Visualizing the location of the houses based on latitude and longitude
+### Visualizing the location of the houses based on latitude and longitude
 ![LatLongVis](https://user-images.githubusercontent.com/31329300/200997459-29b7d859-f671-478e-b5f9-2eaafa72f8f4.png)
-# How Sqft is affecting the sale price of homes
+### How Sqft is affecting the sale price of homes
 ![SqftVIS](https://user-images.githubusercontent.com/31329300/200997466-a7ac5424-2bb4-4296-b806-dbb3f72b7fa5.png)
-# How Number of Bedrooms is affecting the sale price of homes
+### How Number of Bedrooms is affecting the sale price of homes
 ![bedsprice](https://user-images.githubusercontent.com/31329300/200997859-bddab4ac-0427-4077-99a5-de06a9891839.png)
 
-# How the year the house was built affects the homes sale price
+### How the year the house was built affects the homes sale price
 ![yearbuiltVis](https://user-images.githubusercontent.com/31329300/200997484-2dd4af54-74f0-43e2-8411-1614cb5971c5.png)
 
 ## Results
 
-# My Model (Score: 0.9758446486618788)
+### My Model (Score: 0.9758446486618788)
 ![VIS1](https://user-images.githubusercontent.com/31329300/201137124-f97a6fe2-8c54-4daf-9f68-ee21ab82a7a0.png)
 
 #
 # VS
-#
 
-# Model 1 (Score: 0.9526462263899598)
+### Model 1 (Score: 0.9526462263899598)
 ![VIS2](https://user-images.githubusercontent.com/31329300/200976347-6cc8ffcc-a08b-40ac-ae37-108e05b7f8b6.png)
 
 ## Explanation 
