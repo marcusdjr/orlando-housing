@@ -110,6 +110,9 @@ plt.scatter(train.yearBuilt,train.price)
 plt.title('Year Built vs Price')
 
 # %%
+sns.distplot(train.price);
+
+# %%
 #Time to start training models
 
 # %%
@@ -124,7 +127,7 @@ train.head()
 
 # %%
 #Setting my X and y
-X = train[['bedrooms','bathrooms','livingArea','listPrice','address_zipcode']]
+X = train[['bedrooms','bathrooms','livingArea','listPrice']]
 #'yearBuilt','bedrooms'
 
 y = train['price']
@@ -225,3 +228,19 @@ y_t, x_t = y_t.values.reshape(-1,1), x_t.values.reshape(-1,1)
 ax.plot(y_t, LinearRegression().fit(y_t, x_t).predict(y_t))
 
 plt.show()
+
+# %%
+#Setting varialbles of Model 2
+y_t2 = train['price']
+x_t2 = train[['listPrice','address_zipcode']]
+model1 = (y_t2,x_t2)
+
+# %%
+#Reshape
+y_t2, x_t2 = y_t2.values.reshape(-1,1), x_t2.values.reshape(-1,1)
+
+# %%
+r_sqaured2 = r2_score(y_t2,x_t2)
+r_sqaured2
+
+# %%
