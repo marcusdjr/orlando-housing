@@ -44,6 +44,10 @@ import requests
 
 url = "https://api.webscrapingapi.com/v1"
 
+params = {
+ "api_key": "qBuRx9Tb1LaukN5hfYfFX1aTYlxoYbwi",
+ "url": "https://www.realtor.com/realestateandhomes-search/Orlando_FL"
+}
 
 response = requests.request("GET", url, params=params)
 content = response.text
