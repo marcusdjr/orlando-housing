@@ -230,17 +230,50 @@ ax.plot(y_t, LinearRegression().fit(y_t, x_t).predict(y_t))
 plt.show()
 
 # %%
-#Setting varialbles of Model 2
-y_t2 = train['price']
-x_t2 = train[['listPrice','address_zipcode']]
-model1 = (y_t2,x_t2)
+#Setting my X and y
+X = train[['livingArea','listPrice']]
+#'yearBuilt','bedrooms'
+
+y = train['price']
 
 # %%
 #Reshape
 y_t2, x_t2 = y_t2.values.reshape(-1,1), x_t2.values.reshape(-1,1)
 
 # %%
-r_sqaured2 = r2_score(y_t2,x_t2)
-r_sqaured2
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101) 
 
 # %%
+lm.fit(X_train,y_train)
+
+# %%
+#Predicting
+predictions = lm.predict(X_train)
+predictions
+
+# %%
+#Reshape
+y_train, X_train = y_train.values.reshape(-1,1), X_train.values.reshape(-1,1)
+
+#Visualization that represents score
+fig, ax = plt.subplots()
+ax.scatter(y_train, predictions)
+ax.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=4)
+ax.set_xlabel('Actual')
+ax.set_ylabel('Predicted')
+#regression line
+y_train, predictions = y_train, predictions
+ax.plot(y_train, LinearRegression().fit(y_train, predictions).predict(y_train))
+
+plt.show()
+
+# %%
+r_sqaured = r2_score(predictions,y_train)
+
+r_sqaured
+
+# %%
+rms = sqrt(mean_squared_error(y_train, predictions))
+
+# %%
+rms
