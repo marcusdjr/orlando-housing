@@ -85,7 +85,7 @@ plt.ylabel('Laitude',fontsize=12)
 plt.show()
 sns.despine
 
-street_map = gpd.read_file('/Users/marcu/Downloads/tl_2019_12_place.zip')
+#street_map = gpd.read_file('/Users/marcu/Downloads/tl_2019_12_place.zip')
 
 # %%
 #How Sqft is affecting the sale price of homes
@@ -178,27 +178,37 @@ ax.plot(y_train, LinearRegression().fit(y_train, predictions).predict(y_train))
 plt.show()
 
 # %%
-#RMS calculation and value for "My Model"
+#Importing Scores
 from sklearn.metrics import mean_squared_error
 from math import sqrt
-
-rms = sqrt(mean_squared_error(y_train, predictions))
+from sklearn.metrics import r2_score
+from sklearn.metrics import mean_squared_log_error
+from sklearn.metrics import mean_absolute_error as mae
 
 # %%
+#RMS calculation and value for "My Model"
+rms = sqrt(mean_squared_error(y_train, predictions))
 rms
 
 # %%
-#Score import
-from sklearn.metrics import r2_score
-
+#R2 calculation and value for "My Model"
 r_sqaured = r2_score(predictions,y_train)
 
 r_sqaured
 
 
 # %%
-#Importing r2 score
-from sklearn.metrics import r2_score
+#RMSLE calculation and value for "My Model"
+mean_squared_log_error(predictions,y_train, squared=False)
+
+
+# %%
+#MAE calculation and value for "My Model"
+def mae(predictions,y_train):
+    predictions,y_train = np.array(y_train), np.array(predictions)
+    return np.mean(np.abs(predictions - y_train))
+
+print(mae(predictions,y_train))
 
 # %%
 #Linear Regression Model(List Price)
@@ -209,9 +219,6 @@ model1 = (y_t,x_t)
 
 # %%
 #RMS calculation and value for "Linear Regression Model(List Price)"
-from sklearn.metrics import mean_squared_error
-from math import sqrt
-
 rms1 = sqrt(mean_squared_error(y_t,x_t))
 
 # %%
@@ -223,6 +230,19 @@ r_sqaured1 = r2_score(y_t,x_t)
 
 # %%
 r_sqaured1
+
+# %%
+#RMSLE calculation and value for Linear Regression Model(List Price)
+mean_squared_log_error(y_t,x_t, squared=False)
+
+
+# %%
+#MAE calculation and value for Linear Regression Model(List Price)
+def mae(x_t,y_t):
+    x_t,y_t = np.array(y_t), np.array(x_t)
+    return np.mean(np.abs(x_t - y_t))
+
+print(mae(x_t,y_t))
 
 # %%
 #Visualization that represents score of Linear Regression Model(List Price)
