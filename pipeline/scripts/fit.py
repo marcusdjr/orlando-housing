@@ -51,6 +51,11 @@ warnings.warn = ignore_warn #ignore annoying warning (from sklearn and seaborn)
 from scipy import stats
 from scipy.stats import norm, skew #for some statistics
 
+import descartes
+import geopandas as gpd
+from shapely.geometry import Point, Polygon
+
+
 
 
 # %%
@@ -79,6 +84,8 @@ plt.ylabel('Longitude',fontsize=12)
 plt.ylabel('Laitude',fontsize=12)
 plt.show()
 sns.despine
+
+street_map = gpd.read_file('/Users/marcu/Downloads/tl_2019_12_place.zip')
 
 # %%
 #How Sqft is affecting the sale price of homes
