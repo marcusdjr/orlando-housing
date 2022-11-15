@@ -46,6 +46,7 @@ url = "https://api.webscrapingapi.com/v1"
 
 
 
+
 response = requests.request("GET", url, params=params)
 content = response.text
 soup = BeautifulSoup(response.content, 'html.parser')
