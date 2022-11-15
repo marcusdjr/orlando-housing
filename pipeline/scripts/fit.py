@@ -194,13 +194,14 @@ r_sqaured
 from sklearn.metrics import r2_score
 
 # %%
+#Linear Regression Model(List Price)
 #Setting varialbles of Model 1
 y_t = train['price']
 x_t = train['listPrice']
 model1 = (y_t,x_t)
 
 # %%
-#RMS calculation and value for "Model 1"
+#RMS calculation and value for "Linear Regression Model(List Price)"
 from sklearn.metrics import mean_squared_error
 from math import sqrt
 
@@ -210,14 +211,14 @@ rms1 = sqrt(mean_squared_error(y_t,x_t))
 rms1
 
 # %%
-#Score of Model 1, My model will give a more acurate prediction on how much the house will sell for than just going off of the listed price on Zillow.com
+#R Sqaure Score of Linear Regression Model(List Price), My model will give a more acurate prediction on how much the house will sell for than just going off of the listed price on Zillow.com
 r_sqaured1 = r2_score(y_t,x_t)
 
 # %%
 r_sqaured1
 
 # %%
-#Visualization that represents score of Model 1
+#Visualization that represents score of Linear Regression Model(List Price)
 fig, ax = plt.subplots()
 ax.scatter(y_t, x_t)
 ax.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=4)
@@ -230,15 +231,12 @@ ax.plot(y_t, LinearRegression().fit(y_t, x_t).predict(y_t))
 plt.show()
 
 # %%
+#Linear Regression Model(List Price,Sqft)
 #Setting my X and y
 X = train[['livingArea','listPrice']]
 #'yearBuilt','bedrooms'
 
 y = train['price']
-
-# %%
-#Reshape
-y_t2, x_t2 = y_t2.values.reshape(-1,1), x_t2.values.reshape(-1,1)
 
 # %%
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101) 
@@ -268,12 +266,62 @@ ax.plot(y_train, LinearRegression().fit(y_train, predictions).predict(y_train))
 plt.show()
 
 # %%
+# R Sqaure Score of Linear Regression Model(List Price,Sqft)
 r_sqaured = r2_score(predictions,y_train)
 
 r_sqaured
 
 # %%
+#RMS Score of Linear Regression Model(List Price,Sqft)
 rms = sqrt(mean_squared_error(y_train, predictions))
+rms
 
 # %%
+#Linear Regression Model(List Price,Sqft,Zipcode)
+
+# %%
+#Linear Regression Model(List Price,Sqft)
+#Setting my X and y
+X = train[['livingArea','listPrice','address_zipcode']]
+
+y = train['price']
+
+# %%
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101) 
+
+# %%
+lm.fit(X_train,y_train)
+
+# %%
+#Predicting
+predictions = lm.predict(X_train)
+predictions
+
+# %%
+#Reshape
+y_train, X_train = y_train.values.reshape(-1,1), X_train.values.reshape(-1,1)
+
+#Visualization that represents score
+fig, ax = plt.subplots()
+ax.scatter(y_train, predictions)
+ax.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=4)
+ax.set_xlabel('Actual')
+ax.set_ylabel('Predicted')
+#regression line
+y_train, predictions = y_train, predictions
+ax.plot(y_train, LinearRegression().fit(y_train, predictions).predict(y_train))
+
+plt.show()
+
+# %%
+# R Sqaure Score of Linear Regression Model(List Price,Sqft,Zipcode)
+r_sqaured = r2_score(predictions,y_train)
+
+r_sqaured
+
+# %%
+#RMS Score of Linear Regression Model(List Price,Sqft,Zipcode)
+rms = sqrt(mean_squared_error(y_train, predictions))
 rms
+
+# %%
