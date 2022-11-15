@@ -304,6 +304,19 @@ rms = sqrt(mean_squared_error(y_train, predictions))
 rms
 
 # %%
+#RMSLE calculation and value for Linear Regression Model(List Price,Sqft)
+mean_squared_log_error(y_train, predictions, squared=False)
+
+
+# %%
+#MAE calculation and value for Linear Regression Model(List Price,Sqft)
+def mae(predictions,y_train):
+    predictions,y_train = np.array(y_train), np.array(predictions)
+    return np.mean(np.abs(predictions - y_train))
+
+print(mae(predictions,y_train))
+
+# %%
 #Linear Regression Model(List Price,Sqft,Zipcode)
 
 # %%
