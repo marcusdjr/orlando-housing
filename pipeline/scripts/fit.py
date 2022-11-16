@@ -184,6 +184,16 @@ from math import sqrt
 from sklearn.metrics import r2_score
 from sklearn.metrics import mean_squared_log_error
 from sklearn.metrics import mean_absolute_error as mae
+from sklearn.linear_model import ElasticNet, Lasso,  BayesianRidge, LassoLarsIC
+from sklearn.ensemble import RandomForestRegressor,  GradientBoostingRegressor
+from sklearn.kernel_ridge import KernelRidge
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import RobustScaler
+from sklearn.base import BaseEstimator, TransformerMixin, RegressorMixin, clone
+from sklearn.model_selection import KFold, cross_val_score, train_test_split
+from sklearn.metrics import mean_squared_error
+import xgboost as xgb
+import lightgbm as lgb
 
 # %%
 #RMS calculation and value for "My Model"
@@ -209,6 +219,13 @@ def mae(predictions,y_train):
     return np.mean(np.abs(predictions - y_train))
 
 print(mae(predictions,y_train))
+
+# %%
+lasso = make_pipeline(RobustScaler(), Lasso(alpha =0.0005, random_state=1))
+
+# %%
+score = lasso(y_train, predictions)
+print("\nLasso score: {:.4f} ({:.4f})\n".format(score.mean(), score.std()))
 
 # %%
 #Linear Regression Model(List Price)
