@@ -269,8 +269,12 @@ def mae(x_t,y_t):
 print(mae(x_t,y_t))
 
 # %%
+#Reshape
+y_t,x_t = y_t.values.reshape(-1,1), x_t.values.reshape(-1,1)
+#lASSO calculation and value for Linear Regression Model(List Price)
+lasso = Lasso(alpha=1.0)
 cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
-scores = cross_val_score(lasso, y_train, predictions, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+scores = cross_val_score(lasso, y_t,x_t, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
 scores = absolute(scores)
 # force scores to be positive
 print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
