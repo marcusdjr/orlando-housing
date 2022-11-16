@@ -368,7 +368,7 @@ print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
 #Setting my X and y
 X = train[['livingArea','listPrice','address_zipcode']]
 
-y = train['price']
+y = train[['price']]
 
 # %%
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101) 
@@ -422,3 +422,10 @@ def mae(predictions,y_train):
 print(mae(predictions,y_train))
 
 # %%
+#Lasso calculation and value for Linear Regression Model(List Price,Sqft,Zipcode)
+lasso = Lasso(alpha=1.0)
+cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
+scores = cross_val_score(lasso, predictions,y_train, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+scores = absolute(scores)
+# force scores to be positive
+print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
