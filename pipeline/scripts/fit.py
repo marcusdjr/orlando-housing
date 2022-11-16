@@ -270,7 +270,7 @@ print(mae(x_t,y_t))
 
 # %%
 #Reshape
-y_t,x_t = y_t.values.reshape(-1,1), x_t.values.reshape(-1,1)
+#y_t,x_t = y_t.values.reshape(-1,1), x_t.values.reshape(-1,1)
 #lASSO calculation and value for Linear Regression Model(List Price)
 lasso = Lasso(alpha=1.0)
 cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
@@ -287,7 +287,7 @@ ax.plot([y.min(), y.max()], [y.min(), y.max()], 'k--', lw=4)
 ax.set_xlabel('Actual')
 ax.set_ylabel('Predicted')
 #regression line
-y_t, x_t = y_t.values.reshape(-1,1), x_t.values.reshape(-1,1)
+#y_t, x_t = y_t.values.reshape(-1,1), x_t.values.reshape(-1,1)
 ax.plot(y_t, LinearRegression().fit(y_t, x_t).predict(y_t))
 
 plt.show()
@@ -298,7 +298,7 @@ plt.show()
 X = train[['livingArea','listPrice']]
 #'yearBuilt','bedrooms'
 
-y = train['price']
+y = train[['price']]
 
 # %%
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101) 
@@ -350,6 +350,15 @@ def mae(predictions,y_train):
     return np.mean(np.abs(predictions - y_train))
 
 print(mae(predictions,y_train))
+
+# %%
+#lASSO calculation and value for Linear Regression Model(List Price,Sqft)
+lasso = Lasso(alpha=1.0)
+cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
+scores = cross_val_score(lasso, predictions,y_train, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+scores = absolute(scores)
+# force scores to be positive
+print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
 
 # %%
 #Linear Regression Model(List Price,Sqft,Zipcode)
