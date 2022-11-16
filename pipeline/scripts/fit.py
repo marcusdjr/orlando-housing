@@ -194,6 +194,10 @@ from sklearn.model_selection import KFold, cross_val_score, train_test_split
 from sklearn.metrics import mean_squared_error
 import xgboost as xgb
 import lightgbm as lgb
+from sklearn.model_selection import RepeatedKFold
+from numpy import absolute
+from numpy import mean
+from numpy import std
 
 # %%
 #RMS calculation and value for "My Model"
@@ -221,11 +225,14 @@ def mae(predictions,y_train):
 print(mae(predictions,y_train))
 
 # %%
-lasso = make_pipeline(RobustScaler(), Lasso(alpha =0.0005, random_state=1))
+lasso = Lasso(alpha=1.0)
 
 # %%
-score = lasso(y_train, predictions)
-print("\nLasso score: {:.4f} ({:.4f})\n".format(score.mean(), score.std()))
+cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
+scores = cross_val_score(lasso, y_train, predictions, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+scores = absolute(scores)
+# force scores to be positive
+print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
 
 # %%
 #Linear Regression Model(List Price)
@@ -260,6 +267,13 @@ def mae(x_t,y_t):
     return np.mean(np.abs(x_t - y_t))
 
 print(mae(x_t,y_t))
+
+# %%
+cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
+scores = cross_val_score(lasso, y_train, predictions, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+scores = absolute(scores)
+# force scores to be positive
+print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
 
 # %%
 #Visualization that represents score of Linear Regression Model(List Price)
