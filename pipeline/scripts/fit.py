@@ -437,3 +437,12 @@ scores = cross_val_score(lasso, predictions,y_train, scoring='neg_mean_absolute_
 scores = absolute(scores)
 # force scores to be positive
 print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
+
+# %%
+#ENR calculation and value for Linear Regression Model(List Price,Sqft,Zipcode)
+ENR = ElasticNet(alpha=1.0, l1_ratio=0.5)
+cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
+scores = cross_val_score(ENR, y_train, predictions, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+# force scores to be positive
+scores = absolute(scores)
+print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
