@@ -137,7 +137,7 @@ train.head()
 X = train[['bedrooms','bathrooms','livingArea','listPrice']]
 #'yearBuilt','bedrooms'
 
-y = train['price']
+y = train[['price']]
 
 # %%
 #Train Test Split
@@ -198,6 +198,9 @@ from sklearn.model_selection import RepeatedKFold
 from numpy import absolute
 from numpy import mean
 from numpy import std
+from sklearn.datasets import make_classification
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.model_selection import RepeatedStratifiedKFold
 
 # %%
 #RMS calculation and value for "My Model"
@@ -225,22 +228,40 @@ def mae(predictions,y_train):
 print(mae(predictions,y_train))
 
 # %%
-lasso = Lasso(alpha=1.0)
+#LASSO REGRESSION
+
+#x = train.drop('price', axis=1).values
+#y = train['price'].values
+#features = train.drop('price',axis=1).columns
+from sklearn.linear_model import Lasso
+
+lasso = Lasso(alpha=0.1)
+lasso_coef = lasso.fit(predictions,y_train).coef_
+plt.plot(range(len(y_train)),lasso_coef)
+
+plt.xticks(range(len(y_train)),y_train,rotation=60)
+
+plt.ylabel("Coefficients")
+
+plt.show
 
 # %%
-cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
-scores = cross_val_score(lasso, y_train, predictions, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
-scores = absolute(scores)
-# force scores to be positive
-print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
+#lasso = Lasso(alpha=1.0)
 
 # %%
-ENR = ElasticNet(alpha=1.0, l1_ratio=0.5)
-cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
-scores = cross_val_score(ENR, y_train, predictions, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+#cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
+#scores = cross_val_score(lasso, y_train, predictions, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+#scores = absolute(scores)
 # force scores to be positive
-scores = absolute(scores)
-print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
+#print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
+
+# %%
+#ENR = ElasticNet(alpha=1.0, l1_ratio=0.5)
+#cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
+#scores = cross_val_score(ENR, y_train, predictions, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+# force scores to be positive
+#scores = absolute(scores)
+#print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
 
 # %%
 #Linear Regression Model(List Price)
@@ -278,23 +299,23 @@ print(mae(x_t,y_t))
 
 # %%
 #Reshape
-y_t,x_t = y_t.values.reshape(-1,1), x_t.values.reshape(-1,1)
+#y_t,x_t = y_t.values.reshape(-1,1), x_t.values.reshape(-1,1)
 #lASSO calculation and value for Linear Regression Model(List Price)
-lasso = Lasso(alpha=1.0)
-cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
-scores = cross_val_score(lasso, y_t,x_t, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
-scores = absolute(scores)
+#lasso = Lasso(alpha=1.0)
+#cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
+#scores = cross_val_score(lasso, y_t,x_t, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+#scores = absolute(scores)
 # force scores to be positive
-print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
+#print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
 
 # %%
 #ENR calculation and value for Linear Regression Model(List Price,Sqft)
-ENR = ElasticNet(alpha=1.0, l1_ratio=0.5)
-cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
-scores = cross_val_score(ENR, y_t,x_t, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+#ENR = ElasticNet(alpha=1.0, l1_ratio=0.5)
+#cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
+#scores = cross_val_score(ENR, y_t,x_t, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
 # force scores to be positive
-scores = absolute(scores)
-print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
+#scores = absolute(scores)
+#print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
 
 # %%
 #Visualization that represents score of Linear Regression Model(List Price)
@@ -370,21 +391,21 @@ print(mae(predictions,y_train))
 
 # %%
 #lASSO calculation and value for Linear Regression Model(List Price,Sqft)
-lasso = Lasso(alpha=1.0)
-cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
-scores = cross_val_score(lasso, predictions,y_train, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
-scores = absolute(scores)
+#lasso = Lasso(alpha=1.0)
+#cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
+#scores = cross_val_score(lasso, predictions,y_train, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+#scores = absolute(scores)
 # force scores to be positive
-print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
+#print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
 
 # %%
 #ENR calculation and value for Linear Regression Model(List Price,Sqft)
-ENR = ElasticNet(alpha=1.0, l1_ratio=0.5)
-cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
-scores = cross_val_score(ENR, y_train, predictions, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+#ENR = ElasticNet(alpha=1.0, l1_ratio=0.5)
+#cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
+#scores = cross_val_score(ENR, y_train, predictions, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
 # force scores to be positive
-scores = absolute(scores)
-print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
+#scores = absolute(scores)
+#print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
 
 # %%
 #Linear Regression Model(List Price,Sqft,Zipcode)
@@ -449,18 +470,28 @@ print(mae(predictions,y_train))
 
 # %%
 #Lasso calculation and value for Linear Regression Model(List Price,Sqft,Zipcode)
-lasso = Lasso(alpha=1.0)
-cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
-scores = cross_val_score(lasso, predictions,y_train, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
-scores = absolute(scores)
+#lasso = Lasso(alpha=1.0)
+#cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
+#scores = cross_val_score(lasso, predictions,y_train, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+#scores = absolute(scores)
 # force scores to be positive
-print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
+#print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
 
 # %%
 #ENR calculation and value for Linear Regression Model(List Price,Sqft,Zipcode)
-ENR = ElasticNet(alpha=1.0, l1_ratio=0.5)
-cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
-scores = cross_val_score(ENR, y_train, predictions, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+#ENR = ElasticNet(alpha=1.0, l1_ratio=0.5)
+#cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
+#scores = cross_val_score(ENR, y_train, predictions, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
 # force scores to be positive
-scores = absolute(scores)
-print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
+#scores = absolute(scores)
+#print('Mean MAE: %.3f (%.3f)' % (mean(scores), std(scores)))
+
+# %%
+#GBC calculation and value for Linear Regression Model(List Price,Sqft,Zipcode)
+#GBC = GradientBoostingClassifier()
+#GBC.fit(y_train, predictions)
+#cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
+#n_scores = cross_val_score(GBC, y_train, predictions, scoring='accuracy', cv=cv, n_jobs=-1, error_score='raise')
+#print('Accuracy: %.3f (%.3f)' % (mean(n_scores), std(n_scores)))
+
+# %%
