@@ -140,6 +140,25 @@ X = train[['bedrooms','bathrooms','livingArea','listPrice']]
 y = train[['price']]
 
 # %%
+#LASSO REGRESSION
+
+#x = train.drop('price', axis=1).values
+#y = train['price'].values
+#features = train.drop('price',axis=1).columns
+from sklearn.linear_model import Lasso
+
+lasso = Lasso(alpha=0.1)
+
+lasso_coef = lasso.fit(X,y).coef_
+plt.plot(range(len(features)),lasso_coef)
+
+plt.xticks(range(len(features)),features,rotation=60)
+
+plt.ylabel("Coefficients")
+
+plt.show
+
+# %%
 #Train Test Split
 from sklearn.model_selection import train_test_split
 
@@ -226,24 +245,6 @@ def mae(predictions,y_train):
     return np.mean(np.abs(predictions - y_train))
 
 print(mae(predictions,y_train))
-
-# %%
-#LASSO REGRESSION
-
-#x = train.drop('price', axis=1).values
-#y = train['price'].values
-#features = train.drop('price',axis=1).columns
-from sklearn.linear_model import Lasso
-
-lasso = Lasso(alpha=0.1)
-lasso_coef = lasso.fit(predictions,y_train).coef_
-plt.plot(range(len(y_train)),lasso_coef)
-
-plt.xticks(range(len(y_train)),y_train,rotation=60)
-
-plt.ylabel("Coefficients")
-
-plt.show
 
 # %%
 #lasso = Lasso(alpha=1.0)
