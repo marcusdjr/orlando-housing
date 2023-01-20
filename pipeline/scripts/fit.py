@@ -77,25 +77,39 @@ plt.ylabel('Count')
 sns.despine
 
 # %%
-#Visualizing the location of the houses based on latitude and longitude
+#Visualizing the location of the houses based on latitude and longitude using a florida map
 import geopandas as gpd
 
-florida = r'C:\Users\marcu\OneDrive\Desktop\Projects\florida shape file\tl_2019_12_place.shp'
+dest = r'C:\Users\marcu\OneDrive\Desktop\Projects\florida shape file\tl_2019_12_place.shp'
 
-florida_map = gpd.read_file(florida)
+florida = gpd.read_file(dest)
+data = gpd.GeoDataFrame(train, geometry=[Point(xy) for xy in zip(train.latitude, train.longitude)])
+masked_data = gpd.sjoin(data, florida, op='within')
+ax = florida.plot(facecolor='none', edgecolor='black')
+masked_data.plot(ax=ax, marker='o', color='red', markersize=5)
+plt.show()
 
-florida_map.plot()
-geometry = [Point(xy) for xy in zip( train["longitude"], train["latitude"])]
-geometry[:3]
+#plt.figure(figsize=(10,10))
+#plt.scatter(train.latitude,train.longitude)
+#plt.ylabel('Longitude',fontsize=12)
+#plt.xlabel('Laitude',fontsize=12)
+#plt.show()
 
-geo_df = gpd.GeoDataFrame(train,
-                          crs = crs,
-                          geometry = geometry)
-geo_df.head()
+#geometry = [Point(xy) for xy in zip( train["longitude"], train["latitude"])]
+#geometry[:3]
 
-fig,ax = plt.subplots(figsize = (15,15))
-florida_map.plot(ax, alpha = 0.4, color="grey")
-geo_df{geo_df['WnvPresent'] == 0]
+#geo_df = gpd.GeoDataFrame(train,
+                          #crs = crs,
+                          #geometry = geometry)
+#geo_df.head()
+
+#fig,ax = plt.subplots(figsize = (15,15))
+#florida_map.plot(ax, alpha = 0.4, color="grey")
+#geo_df[geo_df['longitude'] == 0].plot(ax = ax, markersize = 20, color = "blue", marker = "o", label = "Neg")
+#geo_df[geo_df['latitude'] == 0].plot(ax = ax, markersize = 20, color = "red", marker = "o", label = "Pos")
+#plt.legend(prop={'size' : 15})
+
+       
 #plt.figure(figsize=(10,10))
 #sns.jointplot(x=train.latitude, y=train.longitude, size=10)
 #plt.ylabel('Longitude',fontsize=12)
