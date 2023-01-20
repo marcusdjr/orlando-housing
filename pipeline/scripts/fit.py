@@ -52,7 +52,6 @@ from scipy import stats
 from scipy.stats import norm, skew #for some statistics
 
 import descartes
-import geopandas as gpd
 from shapely.geometry import Point, Polygon
 
 
@@ -64,6 +63,7 @@ df = pd.read_csv(upstream['clean']['data'])
 #Training csv
 train = pd.read_csv('soldhomes.csv')
 #Start of Analyzing/Training model
+crs = {'init': 'epsg:4326'}
 
 # %%
 train.head()
@@ -78,12 +78,30 @@ sns.despine
 
 # %%
 #Visualizing the location of the houses based on latitude and longitude
-plt.figure(figsize=(10,10))
-sns.jointplot(x=train.latitude, y=train.longitude, size=10)
-plt.ylabel('Longitude',fontsize=12)
-plt.ylabel('Laitude',fontsize=12)
-plt.show()
-sns.despine
+import geopandas as gpd
+
+florida = r'C:\Users\marcu\OneDrive\Desktop\Projects\florida shape file\tl_2019_12_place.shp'
+
+florida_map = gpd.read_file(florida)
+
+florida_map.plot()
+geometry = [Point(xy) for xy in zip( train["longitude"], train["latitude"])]
+geometry[:3]
+
+geo_df = gpd.GeoDataFrame(train,
+                          crs = crs,
+                          geometry = geometry)
+geo_df.head()
+
+fig,ax = plt.subplots(figsize = (15,15))
+florida_map.plot(ax, alpha = 0.4, color="grey")
+geo_df{geo_df['WnvPresent'] == 0]
+#plt.figure(figsize=(10,10))
+#sns.jointplot(x=train.latitude, y=train.longitude, size=10)
+#plt.ylabel('Longitude',fontsize=12)
+#plt.xlabel('Laitude',fontsize=12)
+#plt.show()
+#sns.despine
 
 #street_map = gpd.read_file('/Users/marcu/Downloads/tl_2019_12_place.zip')
 
