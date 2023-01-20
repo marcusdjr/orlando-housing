@@ -179,12 +179,12 @@ y = train[['price']]
 #features = train.drop('price',axis=1).columns
 from sklearn.linear_model import Lasso
 
-lasso = Lasso(alpha=0.1)
+#lasso = Lasso(alpha=0.1)
 
-lasso_coef = lasso.fit(X,y).coef_
-plt.plot(range(len(features)),lasso_coef)
+#lasso_coef = lasso.fit(X,y).coef_
+#plt.plot(range(len(features)),lasso_coef)
 
-plt.xticks(range(len(features)),features,rotation=60)
+#plt.xticks(range(len(features)),features,rotation=60)
 
 plt.ylabel("Coefficients")
 
@@ -332,7 +332,7 @@ print(mae(x_t,y_t))
 
 # %%
 #Reshape
-#y_t,x_t = y_t.values.reshape(-1,1), x_t.values.reshape(-1,1)
+y_t,x_t = y_t.values.reshape(-1,1), x_t.values.reshape(-1,1)
 #lASSO calculation and value for Linear Regression Model(List Price)
 #lasso = Lasso(alpha=1.0)
 #cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)

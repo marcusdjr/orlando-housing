@@ -63,7 +63,7 @@ with open('housing.csv', 'w', encoding='utf8', newline='') as f:
     for list in lists:
         price = list.find('span', attrs={'data-label': 'pc-price'}).text.replace('From', '')
         beds = list.find('li', attrs={'data-label': 'pc-meta-beds'}).text.replace('\n', '')
-        baths = list.find('li', attrs={'data-label': 'pc-meta-baths'}).text.replace('\n', '')
+        baths = list.find('li', attrs={'data-label': 'pc-meta-baths'}).text.replace('+', '')
         # sqft = list.find('li', attrs={'data-label': 'pc-meta-sqft'}).text.replace('\n', '')
 
         info = [price, beds, baths]
