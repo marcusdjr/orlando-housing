@@ -20,7 +20,7 @@
 ## Analysis
 
 ### Visualizing the location of the houses based on latitude and longitude
-![LatLongVis](https://user-images.githubusercontent.com/31329300/200997459-29b7d859-f671-478e-b5f9-2eaafa72f8f4.png)
+![longvslat_florida](https://user-images.githubusercontent.com/31329300/213814201-33939b1c-7417-4ee5-96cf-6ed9c0844379.png)
 ### How Sqft is affecting the sale price of homes
 ![SqftVIS](https://user-images.githubusercontent.com/31329300/200997466-a7ac5424-2bb4-4296-b806-dbb3f72b7fa5.png)
 ### How Number of Bedrooms is affecting the sale price of homes
