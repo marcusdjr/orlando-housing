@@ -5,7 +5,7 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.14.0
+#       jupytext_version: 1.14.4
 #   kernelspec:
 #     display_name: Python 3 (ipykernel)
 #     language: python
@@ -42,7 +42,7 @@ import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 
 #pd.set_option('display.float_format', lambda x: '{:.3f}'.format(x)) #Limiting floats output to 3 decimal points
 
-df = pd.read_csv(upstream['get']['data'])
+df = pd.read_csv('realestate.csv')
 
 #Converting Price value into float datatype
 def clean_currency(x):
