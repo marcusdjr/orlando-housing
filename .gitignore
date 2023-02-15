@@ -6,3 +6,4 @@ sidecode.py
 pipeline/creds.py
 .gitignore
 pipeline/pipeline.html
+sample.csv
