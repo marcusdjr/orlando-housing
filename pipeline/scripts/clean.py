@@ -79,6 +79,33 @@ def clean_currency(x):
 
 df['Baths'] = df['Baths'].apply(clean_currency).astype('float')
 
+
+#Converting Zestimate value into float datatype
+def clean_currency(x):
+    """ If the value is a string, then remove currency symbol and delimiters
+    otherwise, the value is numeric and can be converted
+    """
+    if isinstance(x, str):
+        return(x.replace('$', '').replace(',', ''))
+    return(x)
+
+df['Zestimate'] = df['Zestimate'].apply(clean_currency).astype('float')
+
+
+#Converting Zestimate value into float datatype
+def clean_currency(x):
+    """ If the value is a string, then remove currency symbol and delimiters
+    otherwise, the value is numeric and can be converted
+    """
+    if isinstance(x, str):
+        return(x.replace('$', '').replace(',', ''))
+    return(x)
+
+df['Rent Zestimate'] = df['Rent Zestimate'].apply(clean_currency).astype('float')
+
+df = df.dropna(subset=['Beds','Baths','Footage','Zestimate','Zip'])
+
 df.to_csv(product['data'], index=False)
+df = df.to_csv('realestate.csv', index=False)
 
 # %%

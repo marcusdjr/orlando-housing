@@ -61,16 +61,14 @@ from shapely.geometry import Point, Polygon
 #This file is scraped homes that we run the model againts- hom = homes on market
 df = pd.read_csv(upstream['clean']['data'])
 #Training csv
-train = pd.read_csv('soldhomes.csv')
-#Start of Analyzing/Training model
-crs = {'init': 'epsg:4326'}
+train = pd.read_csv('realestate.csv')
 
 # %%
 train.head()
 
 # %%
 #Most common bedroom number
-train['bedrooms'].value_counts().plot(kind='bar')
+train['Beds'].value_counts().plot(kind='bar')
 plt.title('number of Bedroom')
 plt.xlabel('Bedrooms')
 plt.ylabel('Count')
@@ -83,7 +81,7 @@ import geopandas as gpd
 dest = r'C:\Users\marcu\OneDrive\Desktop\Projects\florida shape file\tl_2019_12_place.shp'
 
 florida = gpd.read_file(dest)
-data = gpd.GeoDataFrame(train, geometry=[Point(xy) for xy in zip(train.latitude, train.longitude)])
+data = gpd.GeoDataFrame(train, geometry=[Point(xy) for xy in zip(train.Latitude, train.Longitude)])
 masked_data = gpd.sjoin(data, florida, op='within')
 ax = florida.plot(facecolor='none', edgecolor='black')
 masked_data.plot(ax=ax, marker='o', color='red', markersize=5)
@@ -121,17 +119,17 @@ plt.show()
 
 # %%
 #How Sqft is affecting the sale price of homes
-plt.scatter(train.price,train.livingArea)
+plt.scatter(train.Price,train.Footage)
 plt.title('Price vs Sqaure Feet')
 
 # %%
 #How Location is affecting the sale price of homes
-plt.scatter(train.price,train.longitude)
+plt.scatter(train.Price,train.Longitude)
 plt.title('Price vs Location of the area')
 
 # %%
 #How Number of Bedrooms is affecting the sale price of homes
-plt.scatter(train.bedrooms,train.price)
+plt.scatter(train.Bedrooms,train.Price)
 plt.title('Bedroom and Price')
 plt.xlabel('Bedrooms')
 plt.ylabel('Price')
@@ -139,17 +137,7 @@ plt.show()
 sns.despine
 
 # %%
-#How the amount of days home was on zillow affected the sale price
-plt.scatter(train.daysOnZillow,train.price)
-plt.title('Days On Zillow vs Price')
-
-# %%
-#How the year the house was built affects the homes sale price
-plt.scatter(train.yearBuilt,train.price)
-plt.title('Year Built vs Price')
-
-# %%
-sns.distplot(train.price);
+sns.distplot(train.Price);
 
 # %%
 #Time to start training models
@@ -166,29 +154,9 @@ train.head()
 
 # %%
 #Setting my X and y
-X = train[['bedrooms','bathrooms','livingArea','listPrice']]
-#'yearBuilt','bedrooms'
+X = train[['Beds','Baths','Footage','Zestimate','Zip']]
 
-y = train[['price']]
-
-# %%
-#LASSO REGRESSION
-
-#x = train.drop('price', axis=1).values
-#y = train['price'].values
-#features = train.drop('price',axis=1).columns
-from sklearn.linear_model import Lasso
-
-#lasso = Lasso(alpha=0.1)
-
-#lasso_coef = lasso.fit(X,y).coef_
-#plt.plot(range(len(features)),lasso_coef)
-
-#plt.xticks(range(len(features)),features,rotation=60)
-
-plt.ylabel("Coefficients")
-
-plt.show
+y = train[['Price']]
 
 # %%
 #Train Test Split
@@ -214,7 +182,7 @@ predictions
 
 # %%
 #Reshape
-y_train, X_train = y_train.values.reshape(-1,1), X_train.values.reshape(-1,1)
+#y_train, X_train = y_train.values.reshape(-1,1), X_train.values.reshape(-1,1)
 
 #Visualization that represents score
 fig, ax = plt.subplots()
