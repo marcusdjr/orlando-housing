@@ -197,6 +197,13 @@ ax.plot(y_train, LinearRegression().fit(y_train, predictions).predict(y_train))
 plt.show()
 
 # %%
+#PICKLE FILE
+
+import pickle
+pickle.dump(lm,open('model.pkl','wb'))
+model=pickle.load(open('model.pkl','rb'))
+
+# %%
 #Importing Scores
 from sklearn.metrics import mean_squared_error
 from math import sqrt
