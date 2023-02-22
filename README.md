@@ -19,15 +19,13 @@
 
 ## Analysis
 
-### Visualizing the location of the houses based on latitude and longitude
-![longvslat_florida](https://user-images.githubusercontent.com/31329300/213814201-33939b1c-7417-4ee5-96cf-6ed9c0844379.png)
 ### How Sqft is affecting the sale price of homes
-![SqftVIS](https://user-images.githubusercontent.com/31329300/200997466-a7ac5424-2bb4-4296-b806-dbb3f72b7fa5.png)
+![SqftVIS](https://user-images.githubusercontent.com/31329300/220726343-212724a7-1add-4d79-9995-c9ac8f5edb61.png)
 ### How Number of Bedrooms is affecting the sale price of homes
-![bedsprice](https://user-images.githubusercontent.com/31329300/200997859-bddab4ac-0427-4077-99a5-de06a9891839.png)
+![VIS1](https://user-images.githubusercontent.com/31329300/220730981-fa6bf95b-a86d-41a2-90af-1a64237e7f07.png)
+### How Number of Bathrooms is affecting the sale price of homes
+![VIS2](https://user-images.githubusercontent.com/31329300/220731572-a68ec7bc-ad04-48de-a764-0569982d9ede.png)
 
-### How the year the house was built affects the homes sale price
-![yearbuiltVis](https://user-images.githubusercontent.com/31329300/200997484-2dd4af54-74f0-43e2-8411-1614cb5971c5.png)
 
 ## Results
 
@@ -36,4 +34,4 @@
 
 ## Explanation 
 
-In "My Model" here we see an R Squared score of 0.8992632194250129
+In My Model here we see an R Squared score of 0.8992632194250129

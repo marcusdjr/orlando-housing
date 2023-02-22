@@ -129,12 +129,23 @@ plt.title('Price vs Location of the area')
 
 # %%
 #How Number of Bedrooms is affecting the sale price of homes
-plt.scatter(train.Bedrooms,train.Price)
+plt.scatter(train.Beds,train.Price)
 plt.title('Bedroom and Price')
 plt.xlabel('Bedrooms')
 plt.ylabel('Price')
 plt.show()
 sns.despine
+
+# %%
+#How Number of Bedrooms is affecting the sale price of homes
+plt.scatter(train.Baths,train.Price)
+plt.title('Bathrooms and Price')
+plt.xlabel('Bathrooms')
+plt.ylabel('Price')
+plt.show()
+sns.despine
+
+# %%
 
 # %%
 sns.distplot(train.Price);
