@@ -13,8 +13,8 @@
 ## Process
 
 - Scrape the data from each home on the market within a 20 mile radius of Orlando Florida. 
-- Use ploomber to build a data pipeline. 
-- Use GitHub Actions to run the scarper every day and pull in newly added homes.
+- Use ploomber to build a data pipeline.
+- Clean the data, and perform Exploratory Data Analysis 
 - Estimate the sale price of homes within a 20 mile radius of Orlando Florida.
 
 ## Analysis
@@ -29,7 +29,7 @@
 
 ## Results
 
-### My Model (Score: 0.8992632194250129)
+### My Model (Score R2: 0.8992632194250129)
 ![Sale Price Accuracy score](https://user-images.githubusercontent.com/31329300/220711508-e2520c1d-05f1-469a-baf6-3bf8bba23054.png)
 
 ## Explanation 
