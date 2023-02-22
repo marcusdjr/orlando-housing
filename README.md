@@ -31,15 +31,9 @@
 
 ## Results
 
-### My Model (Score: 0.9758446486618788)
-![VIS1](https://user-images.githubusercontent.com/31329300/201137124-f97a6fe2-8c54-4daf-9f68-ee21ab82a7a0.png)
-
-#
-# VS
-
-### Model 1 (Score: 0.9526462263899598)
-![VIS2](https://user-images.githubusercontent.com/31329300/200976347-6cc8ffcc-a08b-40ac-ae37-108e05b7f8b6.png)
+### My Model (Score: 0.8992632194250129)
+![Sale Price Accuracy score](https://user-images.githubusercontent.com/31329300/220711508-e2520c1d-05f1-469a-baf6-3bf8bba23054.png)
 
 ## Explanation 
 
-In "My Model" here we see an R Squared score of 0.97 while in "Model 1" we see an R Squared score of 0.95 meaning that "My Model" is more accurate when it comes to predicting the sale price of homes than "Model" 1. "Model 1" predicts the sale price of homes based off the price the home was listed for and we see that there is a 95% chance of it getting the prediction right but on the other hand "My Model" does 2% better than "Model 1" making it the better model. 
+In "My Model" here we see an R Squared score of 0.89 
