@@ -36,4 +36,4 @@
 
 ## Explanation 
 
-In "My Model" here we see an R Squared score of 0.89 
+In "My Model" here we see an R Squared score of 0.8992632194250129
