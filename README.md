@@ -1,7 +1,6 @@
 
 # 
 
-
 ## Click Image to watch Youtube video presentation
 [![Orlando Housing Youtube Video](https://user-images.githubusercontent.com/31329300/198492770-4db960a5-9384-4cc4-802d-5d468207a0d4.png)](http://www.youtube.com/watch?v=V552OWMYziw "Orlando Housing")
 
