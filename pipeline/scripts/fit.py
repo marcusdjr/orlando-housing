@@ -170,6 +170,25 @@ X = train[['Beds','Baths','Footage','Zestimate','Zip']]
 y = train[['Price']]
 
 # %%
+from lazypredict.Supervised import LazyRegressor
+from sklearn.model_selection import train_test_split
+
+# Load and preprocess your data
+X = train[['Beds','Baths','Footage','Zestimate','Zip']]
+y = train[['Price']]
+# Split the data into training and testing subsets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
+
+# Initialize the LazyRegressor object
+reg = LazyRegressor(verbose=0, ignore_warnings=False, custom_metric=None)
+
+# Fit the LazyRegressor object to the training data
+models, predictions = reg.fit(X_train, X_test, y_train, y_test)
+
+# %%
+print(models)
+
+# %%
 #Train Test Split
 from sklearn.model_selection import train_test_split
 
