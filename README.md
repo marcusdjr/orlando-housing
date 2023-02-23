@@ -29,9 +29,11 @@
 
 ## Results
 
-### My Model (Score R2: 0.8992632194250129)
+### R Squared scores and RMSE scores for multple regression models
+
+![RMSE R2](https://user-images.githubusercontent.com/31329300/220953333-1b2de6ae-53cd-48a8-bdc3-281231f2450e.png)
+
+### Visual Representation Of Linear Regression Model Score
 ![Sale Price Accuracy score](https://user-images.githubusercontent.com/31329300/220711508-e2520c1d-05f1-469a-baf6-3bf8bba23054.png)
+ 
 
-## Explanation 
-
-In My Model here we see an R Squared score of 0.8992632194250129
