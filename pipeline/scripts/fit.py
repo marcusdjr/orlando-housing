@@ -137,7 +137,7 @@ plt.show()
 sns.despine
 
 # %%
-#How Number of Bedrooms is affecting the sale price of homes
+#How Number of Bathrooms is affecting the sale price of homes
 plt.scatter(train.Baths,train.Price)
 plt.title('Bathrooms and Price')
 plt.xlabel('Bathrooms')
@@ -192,9 +192,6 @@ predictions = lm.predict(X_train)
 predictions
 
 # %%
-#Reshape
-#y_train, X_train = y_train.values.reshape(-1,1), X_train.values.reshape(-1,1)
-
 #Visualization that represents score
 fig, ax = plt.subplots()
 ax.scatter(y_train, predictions)
@@ -229,8 +226,8 @@ from sklearn.preprocessing import RobustScaler
 from sklearn.base import BaseEstimator, TransformerMixin, RegressorMixin, clone
 from sklearn.model_selection import KFold, cross_val_score, train_test_split
 from sklearn.metrics import mean_squared_error
-import xgboost as xgb
-import lightgbm as lgb
+#import xgboost as xgb
+#import lightgbm as lgb
 from sklearn.model_selection import RepeatedKFold
 from numpy import absolute
 from numpy import mean
@@ -240,12 +237,12 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import RepeatedStratifiedKFold
 
 # %%
-#RMS calculation and value for "My Model"
+#RMS calculation and value for "Linear Model"
 rms = sqrt(mean_squared_error(y_train, predictions))
 rms
 
 # %%
-#R2 calculation and value for "My Model"
+#R2 calculation and value for "Linear Model"
 r_sqaured = r2_score(predictions,y_train)
 
 r_sqaured
