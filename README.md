@@ -1,7 +1,11 @@
 
 # 
 
+<<<<<<< HEAD
 ## Click Image to watch Youtube video presentation
+=======
+## Click Image to watch YouTube video presentation
+>>>>>>> 94b26101c7f82e4f9372339fd4f3bfe4bb6f3785
 [![Orlando Housing Youtube Video](https://user-images.githubusercontent.com/31329300/198492770-4db960a5-9384-4cc4-802d-5d468207a0d4.png)](http://www.youtube.com/watch?v=V552OWMYziw "Orlando Housing")
 
 >In recent times our economy has been of great concern, inflation has caused rises in prices like we have never seen before especially when it comes to the cost of homes. I have been very interested in purchasing a home with my family in the Orlando Florida area but inflation has made the search difficult. My goal with this project is to estimate the sales price for each house within a 20 miles radius of Orlando Florida so that I know exactly what a "Good Price" looks like when purchasing my home.
