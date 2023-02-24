@@ -107,3 +107,5 @@ df = df.dropna(subset=['Beds','Baths','Footage','Zestimate','Zip'])
 
 df.to_csv(product['data'], index=False)
 df = df.to_csv('realestate.csv', index=False)
+
+# %%
